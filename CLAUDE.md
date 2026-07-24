@@ -166,4 +166,4 @@ bench --site v16.erpera.io run-tests --app orbit
 - **Backend:** ruff (lint+format) via `pyproject.toml` + pre-commit; Frappe semgrep + pip-audit in `linter.yml`.
 - **Frontend:** own eslint (flat config, `frontend/eslint.config.mjs`) + prettier (`frontend/.prettierrc.json`, 2-space) — run `yarn lint` / `yarn format` in `/frontend`. NOT wired into root pre-commit (that's Python-only).
 - **CI (`ci.yml`):** three jobs — `Server` (bench + `run-tests`), `UI (Playwright)` (builds SPA, serves site, runs specs), `Frontend lint + format`. Runs on push to `develop`/`version-16` and all PRs.
-- Prettier gotcha: multi-statement inline Vue handlers (`@submit="a(); b = ''"`) break — wrap in an arrow block `() => { a(); b = '' }` or extract a method.
+- Prettier gotcha: multi-statement inline Vue handlers (`@submit="a(); b = ''"`) break — **extract a named method** (`@submit.prevent="doThing"`). Do NOT wrap in an inline arrow (`() => { … }`): with event modifiers like `.prevent`, the modifier doesn't apply to a function-expression handler, so the native submit fires and navigates the SPA (this silently broke label saving once).
