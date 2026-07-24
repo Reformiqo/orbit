@@ -1,0 +1,173 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "hash",
+ "creation": "2026-04-19 00:00:00",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "title",
+  "project",
+  "parent_page",
+  "icon",
+  "column_break_basic",
+  "position",
+  "is_archived",
+  "content_section",
+  "content",
+  "import_section",
+  "external_id",
+  "external_source",
+  "column_break_import",
+  "external_url",
+  "imported_at"
+ ],
+ "fields": [
+  {
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "in_global_search": 1,
+   "in_list_view": 1,
+   "label": "Title",
+   "reqd": 1
+  },
+  {
+   "fieldname": "project",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Project",
+   "options": "Project",
+   "reqd": 1
+  },
+  {
+   "description": "Parent page for nesting. Must belong to the same project.",
+   "fieldname": "parent_page",
+   "fieldtype": "Link",
+   "label": "Parent Page",
+   "options": "Orbit Page"
+  },
+  {
+   "description": "Emoji shown next to the page title in the tree.",
+   "fieldname": "icon",
+   "fieldtype": "Data",
+   "label": "Icon",
+   "length": 8
+  },
+  {
+   "fieldname": "column_break_basic",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "description": "Sibling order within the parent page.",
+   "fieldname": "position",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Position"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_archived",
+   "fieldtype": "Check",
+   "in_standard_filter": 1,
+   "label": "Is Archived"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "content_section",
+   "fieldtype": "Section Break",
+   "label": "Content"
+  },
+  {
+   "description": "HTML produced by the TipTap editor.",
+   "fieldname": "content",
+   "fieldtype": "Long Text",
+   "label": "Content"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "import_section",
+   "fieldtype": "Section Break",
+   "label": "Import Metadata"
+  },
+  {
+   "description": "Original ID from the source system (e.g. Zoho Projects page ID).",
+   "fieldname": "external_id",
+   "fieldtype": "Data",
+   "label": "External ID"
+  },
+  {
+   "fieldname": "external_source",
+   "fieldtype": "Select",
+   "label": "External Source",
+   "options": "\nzoho_projects\njira\nlinear\ncsv"
+  },
+  {
+   "fieldname": "column_break_import",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "Deep link back to the source record.",
+   "fieldname": "external_url",
+   "fieldtype": "Data",
+   "label": "External URL"
+  },
+  {
+   "fieldname": "imported_at",
+   "fieldtype": "Datetime",
+   "label": "Imported At",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-04-19 00:00:00",
+ "modified_by": "Administrator",
+ "module": "Orbit",
+ "name": "Orbit Page",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Projects Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 0,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Projects User",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "title",
+ "track_changes": 1
+}

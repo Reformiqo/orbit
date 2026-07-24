@@ -1,0 +1,18 @@
+@import 'frappe-ui/style.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  height: 100%;
+}
+
+.orbit-mention {
+  color: var(--text-ink-blue-3);
+  background-color: var(--surface-blue-1);
+  border-radius: 4px;
+  padding: 1px 4px;
+  font-weight: 500;
+}

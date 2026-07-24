@@ -1,0 +1,15 @@
+<template>
+  <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect width="32" height="32" rx="7" fill="#2490EF" />
+    <circle
+      cx="14"
+      cy="16"
+      r="9.25"
+      stroke="#ffffff"
+      stroke-width="2"
+      opacity="0.55"
+    />
+    <circle cx="14" cy="16" r="4" fill="#ffffff" />
+    <circle cx="25" cy="16" r="2" fill="#ffffff" />
+  </svg>
+</template>

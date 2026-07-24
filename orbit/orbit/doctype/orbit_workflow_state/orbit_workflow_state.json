@@ -1,0 +1,120 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "hash",
+ "creation": "2026-04-19 00:00:00",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "state_name",
+  "project",
+  "status_group",
+  "column_break_1",
+  "color",
+  "position",
+  "is_default"
+ ],
+ "fields": [
+  {
+   "fieldname": "state_name",
+   "fieldtype": "Data",
+   "in_global_search": 1,
+   "in_list_view": 1,
+   "label": "State Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "project",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Project",
+   "options": "Project",
+   "reqd": 1
+  },
+  {
+   "description": "Group used for high-level progress rollups and default coloring.",
+   "fieldname": "status_group",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Status Group",
+   "options": "Backlog\nUnstarted\nStarted\nCompleted\nCancelled",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "Hex color, e.g. #94A3B8",
+   "fieldname": "color",
+   "fieldtype": "Data",
+   "label": "Color",
+   "length": 9
+  },
+  {
+   "description": "Display order within the project.",
+   "fieldname": "position",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Position",
+   "default": "0"
+  },
+  {
+   "fieldname": "is_default",
+   "fieldtype": "Check",
+   "label": "Is Default",
+   "description": "Default state for new tasks in this project."
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-04-19 00:00:00",
+ "modified_by": "Administrator",
+ "module": "Orbit",
+ "name": "Orbit Workflow State",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Projects Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 0,
+   "delete": 0,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Projects User",
+   "share": 1,
+   "write": 0
+  }
+ ],
+ "sort_field": "position",
+ "sort_order": "ASC",
+ "states": [],
+ "title_field": "state_name",
+ "track_changes": 1
+}

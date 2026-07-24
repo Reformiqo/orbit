@@ -1,25 +1,33 @@
 app_name = "orbit"
 app_title = "Orbit"
 app_publisher = "erpera"
-app_description = "Frappe project managment UI"
+app_description = "Modern project management for Frappe"
 app_email = "ino@erpera.io"
 app_license = "mit"
+app_icon_url = "/assets/orbit/images/logo.svg"
+app_icon_title = "Orbit"
+app_icon_route = "/orbit"
 
 # Apps
 # ------------------
 
 # required_apps = []
 
-# Each item in the list will be shown as an app in the apps page
-# add_to_apps_screen = [
-# 	{
-# 		"name": "orbit",
-# 		"logo": "/assets/orbit/logo.png",
-# 		"title": "Orbit",
-# 		"route": "/orbit",
-# 		"has_permission": "orbit.api.permission.has_app_permission"
-# 	}
-# ]
+add_to_apps_screen = [
+	{
+		"name": "orbit",
+		"logo": "/assets/orbit/images/logo.svg",
+		"title": "Orbit",
+		"route": "/orbit",
+	}
+]
+
+# Website routes
+# --------------
+# Send /orbit/* to the SPA entry (orbit/www/orbit.html). This enables deep links.
+website_route_rules = [
+	{"from_route": "/orbit/<path:app_path>", "to_route": "orbit"},
+]
 
 # Includes in <head>
 # ------------------
@@ -85,8 +93,13 @@ app_license = "mit"
 # Installation
 # ------------
 
-# before_install = "orbit.install.before_install"
-# after_install = "orbit.install.after_install"
+after_install = "orbit.setup.custom_fields.ensure_custom_fields"
+
+after_migrate = ["orbit.setup.custom_fields.ensure_custom_fields"]
+
+# Guard CRM's global Comment on_update hook: it crashes when the Comment is
+# on a non-CRM doctype (e.g. an Orbit Task). Patches once per worker.
+before_request = ["orbit.overrides.crm_comment_guard.apply"]
 
 # Uninstallation
 # ------------
@@ -132,13 +145,30 @@ app_license = "mit"
 # ---------------
 # Hook on document methods and events
 
-# doc_events = {
-# 	"*": {
-# 		"on_update": "method",
-# 		"on_cancel": "method",
-# 		"on_trash": "method"
-# 	}
-# }
+doc_events = {
+	"Project": {
+		"validate": "orbit.overrides.project.validate",
+		"after_insert": "orbit.overrides.project.after_insert",
+		"on_trash": "orbit.overrides.project.on_trash",
+	},
+	"Task": {
+		"validate": "orbit.overrides.task.validate",
+		"after_insert": [
+			"orbit.overrides.task.after_insert",
+			"orbit.notifications.on_task_after_insert",
+		],
+		"on_update": "orbit.notifications.on_task_update",
+	},
+	"Comment": {
+		"on_update": "orbit.notifications.on_comment_update",
+	},
+	"Orbit Page": {
+		"validate": "orbit.overrides.page.validate",
+	},
+	"Orbit Workspace": {
+		"after_insert": "orbit.overrides.workspace.after_insert",
+	},
+}
 
 # Scheduled Tasks
 # ---------------

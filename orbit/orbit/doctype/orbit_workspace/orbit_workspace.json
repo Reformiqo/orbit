@@ -1,0 +1,114 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:slug",
+ "creation": "2026-04-19 00:00:00",
+ "doctype": "DocType",
+ "editable_grid": 0,
+ "engine": "InnoDB",
+ "field_order": [
+  "workspace_name",
+  "slug",
+  "icon",
+  "description",
+  "import_section",
+  "external_id",
+  "external_source",
+  "column_break_import",
+  "external_url",
+  "imported_at"
+ ],
+ "fields": [
+  {
+   "fieldname": "workspace_name",
+   "fieldtype": "Data",
+   "in_global_search": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Workspace Name",
+   "reqd": 1
+  },
+  {
+   "description": "URL-safe identifier. Lowercase letters, numbers, and hyphens only.",
+   "fieldname": "slug",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Slug",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "description": "Emoji or single character displayed next to the workspace name.",
+   "fieldname": "icon",
+   "fieldtype": "Data",
+   "label": "Icon",
+   "length": 8
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Small Text",
+   "label": "Description"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "import_section",
+   "fieldtype": "Section Break",
+   "label": "Import Metadata"
+  },
+  {
+   "description": "Original ID from the source system (e.g. Zoho Projects portal ID).",
+   "fieldname": "external_id",
+   "fieldtype": "Data",
+   "label": "External ID"
+  },
+  {
+   "fieldname": "external_source",
+   "fieldtype": "Select",
+   "label": "External Source",
+   "options": "\nzoho_projects\njira\nlinear\ncsv"
+  },
+  {
+   "fieldname": "column_break_import",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "Deep link back to the source record, useful for debugging imports.",
+   "fieldname": "external_url",
+   "fieldtype": "Data",
+   "label": "External URL"
+  },
+  {
+   "fieldname": "imported_at",
+   "fieldtype": "Datetime",
+   "label": "Imported At",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-04-19 00:00:00",
+ "modified_by": "Administrator",
+ "module": "Orbit",
+ "name": "Orbit Workspace",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "workspace_name",
+ "track_changes": 1
+}
