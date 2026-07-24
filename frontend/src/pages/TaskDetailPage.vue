@@ -508,14 +508,7 @@
                     </button>
                   </span>
                 </div>
-                <form
-                  @submit.prevent="
-                    () => {
-                      addLabel(labelDraft)
-                      labelDraft = ''
-                    }
-                  "
-                >
+                <form @submit.prevent="submitLabel">
                   <input
                     v-model="labelDraft"
                     type="text"
@@ -782,16 +775,54 @@ const labels = computed(() => {
 })
 const labelDraft = ref('')
 
-async function addLabel(name) {
+// Label writes serialize through this chain so rapid successive edits can't
+// clobber each other (each set_value writes the whole comma-joined string).
+let labelChain = Promise.resolve()
+
+function commitLabels(value) {
+  // Optimistic local update so a follow-up edit reads the fresh list instead of
+  // the stale one from before the previous save round-tripped.
+  if (task.value) task.value.orbit_labels = value
+  labelChain = labelChain.then(async () => {
+    dirty.value = true
+    try {
+      await createResource({
+        url: 'frappe.client.set_value',
+        params: {
+          doctype: 'Task',
+          name: props.taskId,
+          fieldname: 'orbit_labels',
+          value,
+        },
+      }).submit()
+      flashSaved()
+    } catch (err) {
+      console.error('Save failed for orbit_labels:', err)
+    } finally {
+      dirty.value = false
+    }
+  })
+  return labelChain
+}
+
+function addLabel(name) {
   const trimmed = (name || '').trim()
   if (!trimmed) return
   const next = Array.from(new Set([...labels.value, trimmed]))
-  await saveField('orbit_labels', next.join(', '))
+  return commitLabels(next.join(', '))
 }
 
-async function removeLabel(name) {
+// Named handler (not an inline arrow) so the form's .prevent modifier reliably
+// suppresses the native submit — otherwise Enter navigates the SPA and kills
+// the pending save before it fires.
+function submitLabel() {
+  addLabel(labelDraft.value)
+  labelDraft.value = ''
+}
+
+function removeLabel(name) {
   const next = labels.value.filter((l) => l !== name)
-  await saveField('orbit_labels', next.join(', '))
+  return commitLabels(next.join(', '))
 }
 
 function userName(email) {
