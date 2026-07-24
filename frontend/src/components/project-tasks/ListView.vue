@@ -37,7 +37,9 @@
             <span class="text-sm font-medium text-ink-gray-9">
               {{ group.label }}
             </span>
-            <span class="text-xs text-ink-gray-5">{{ group.items.length }}</span>
+            <span class="text-xs text-ink-gray-5">{{
+              group.items.length
+            }}</span>
           </header>
           <ul
             v-show="!collapsed[group.key]"

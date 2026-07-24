@@ -1,8 +1,5 @@
 <template>
-  <Dialog
-    v-model="isOpen"
-    :options="{ title: 'Create workspace', size: 'md' }"
-  >
+  <Dialog v-model="isOpen" :options="{ title: 'Create workspace', size: 'md' }">
     <template #body-content>
       <form class="space-y-4" @submit.prevent="submit">
         <FormControl
@@ -48,7 +45,13 @@
 
 <script setup>
 import { computed, nextTick, reactive, ref, watch } from 'vue'
-import { Button, Dialog, FormControl, ErrorMessage, createResource } from 'frappe-ui'
+import {
+  Button,
+  Dialog,
+  FormControl,
+  ErrorMessage,
+  createResource,
+} from 'frappe-ui'
 import { useWorkspacesStore } from '@/stores/workspaces'
 
 const props = defineProps({
@@ -79,7 +82,9 @@ const SLUG_RE = /^[a-z0-9](?:[a-z0-9-]{0,38}[a-z0-9])?$/
 
 const slugHelperText = computed(() => {
   if (!form.slug) return 'Lowercase letters, digits, hyphens. 1–40 characters.'
-  return SLUG_RE.test(form.slug) ? '' : 'Invalid — lowercase letters/digits/hyphens only, no leading/trailing hyphen.'
+  return SLUG_RE.test(form.slug)
+    ? ''
+    : 'Invalid — lowercase letters/digits/hyphens only, no leading/trailing hyphen.'
 })
 
 function slugify(value) {

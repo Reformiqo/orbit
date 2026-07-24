@@ -11,7 +11,9 @@
       </div>
       <div class="flex-1">
         <div class="text-base font-medium text-ink-gray-9">Getting started</div>
-        <div class="mt-0.5 text-sm text-ink-gray-5">{{ completed }}/{{ total }} steps</div>
+        <div class="mt-0.5 text-sm text-ink-gray-5">
+          {{ completed }}/{{ total }} steps
+        </div>
       </div>
     </div>
     <button

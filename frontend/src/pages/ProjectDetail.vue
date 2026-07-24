@@ -34,7 +34,6 @@
             params: { projectId, tab: tab.key },
           }"
           :replace="true"
-          v-slot="{ isExactActive }"
           custom
         >
           <button
@@ -44,7 +43,12 @@
                 ? 'text-ink-gray-9'
                 : 'text-ink-gray-5 hover:text-ink-gray-8'
             "
-            @click="$router.replace({ name: 'ProjectDetail', params: { projectId, tab: tab.key } })"
+            @click="
+              $router.replace({
+                name: 'ProjectDetail',
+                params: { projectId, tab: tab.key },
+              })
+            "
           >
             {{ tab.label }}
             <span
@@ -79,18 +83,12 @@
         :projectId="projectId"
         :projectName="project?.project_name || ''"
       />
-      <ModulesTab
-        v-else-if="activeTab === 'modules'"
-        :projectId="projectId"
-      />
+      <ModulesTab v-else-if="activeTab === 'modules'" :projectId="projectId" />
       <MilestonesTab
         v-else-if="activeTab === 'milestones'"
         :projectId="projectId"
       />
-      <ViewsTab
-        v-else-if="activeTab === 'views'"
-        :projectId="projectId"
-      />
+      <ViewsTab v-else-if="activeTab === 'views'" :projectId="projectId" />
       <ProjectPagesTab
         v-else-if="activeTab === 'pages'"
         :projectId="projectId"
@@ -141,13 +139,48 @@ const projectId = computed(() => route.params.projectId)
 const activeTab = computed(() => route.params.tab || 'overview')
 
 const tabs = [
-  { key: 'overview', label: 'Overview', icon: LayoutDashboard, description: 'Project summary, recent activity, and progress.' },
-  { key: 'tasks', label: 'Tasks', icon: CheckSquare, description: 'Stacked grouped list of tasks in this project.' },
-  { key: 'modules', label: 'Modules', icon: Package, description: 'Group tasks into feature buckets.' },
-  { key: 'milestones', label: 'Milestones', icon: Target, description: 'Goal-based checkpoints with optional target dates.' },
-  { key: 'views', label: 'Views', icon: Eye, description: 'Saved filters shared with your team.' },
-  { key: 'pages', label: 'Pages', icon: FileText, description: 'Rich-text wiki for your project.' },
-  { key: 'settings', label: 'Settings', icon: Settings, description: 'Project configuration.' },
+  {
+    key: 'overview',
+    label: 'Overview',
+    icon: LayoutDashboard,
+    description: 'Project summary, recent activity, and progress.',
+  },
+  {
+    key: 'tasks',
+    label: 'Tasks',
+    icon: CheckSquare,
+    description: 'Stacked grouped list of tasks in this project.',
+  },
+  {
+    key: 'modules',
+    label: 'Modules',
+    icon: Package,
+    description: 'Group tasks into feature buckets.',
+  },
+  {
+    key: 'milestones',
+    label: 'Milestones',
+    icon: Target,
+    description: 'Goal-based checkpoints with optional target dates.',
+  },
+  {
+    key: 'views',
+    label: 'Views',
+    icon: Eye,
+    description: 'Saved filters shared with your team.',
+  },
+  {
+    key: 'pages',
+    label: 'Pages',
+    icon: FileText,
+    description: 'Rich-text wiki for your project.',
+  },
+  {
+    key: 'settings',
+    label: 'Settings',
+    icon: Settings,
+    description: 'Project configuration.',
+  },
 ]
 
 function isTabActive(key) {

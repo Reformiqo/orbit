@@ -42,9 +42,7 @@ async function seedTask(
 }
 
 async function gotoTasksTab(page: Page, projectId: string) {
-  await page.goto(
-    `/orbit/projects/${encodeURIComponent(projectId)}/tasks`,
-  )
+  await page.goto(`/orbit/projects/${encodeURIComponent(projectId)}/tasks`)
   await expect(page.getByTestId('tasks-create-btn')).toBeVisible()
 }
 

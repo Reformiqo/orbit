@@ -12,8 +12,10 @@
           class="inline-flex cursor-pointer items-center gap-2 rounded-md border border-outline-gray-2 px-3 py-1.5 text-sm text-ink-gray-8 transition-colors hover:bg-surface-gray-2"
           @click="togglePopover"
         >
-          <component v-if="icon" :is="icon" class="h-4 w-4 text-ink-gray-6" />
-          <span v-if="!modelValue" class="text-ink-gray-6">{{ placeholder }}</span>
+          <component :is="icon" v-if="icon" class="h-4 w-4 text-ink-gray-6" />
+          <span v-if="!modelValue" class="text-ink-gray-6">{{
+            placeholder
+          }}</span>
           <span v-else>{{ displayLabel || formatted }}</span>
         </button>
       </template>

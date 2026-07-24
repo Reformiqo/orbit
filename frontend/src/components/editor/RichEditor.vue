@@ -52,7 +52,13 @@
       <ToolbarButton
         v-if="profile === 'page'"
         title="Table"
-        @click="editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run()"
+        @click="
+          editor
+            .chain()
+            .focus()
+            .insertTable({ rows: 3, cols: 3, withHeaderRow: true })
+            .run()
+        "
       >
         <TableIcon class="h-3.5 w-3.5" />
       </ToolbarButton>
@@ -233,7 +239,9 @@ defineExpose({ editor, getHTML, setHTML, focus })
   word-break: break-word;
 }
 
-.orbit-rich-editor__content .ProseMirror:not(.ProseMirror-focused) p.is-editor-empty:first-child::before {
+.orbit-rich-editor__content
+  .ProseMirror:not(.ProseMirror-focused)
+  p.is-editor-empty:first-child::before {
   content: attr(data-placeholder);
   color: var(--ink-gray-4);
   pointer-events: none;

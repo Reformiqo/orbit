@@ -1,9 +1,6 @@
 <template>
   <div class="flex flex-col">
-    <div
-      v-if="!tasks.length"
-      class="flex h-64 items-center justify-center"
-    >
+    <div v-if="!tasks.length" class="flex h-64 items-center justify-center">
       <div class="text-center">
         <CheckSquare class="mx-auto h-10 w-10 text-ink-gray-5" />
         <h2 class="mt-3 text-xl font-medium text-ink-gray-9">
@@ -12,7 +9,11 @@
         <p class="mt-1.5 text-base text-ink-gray-5">{{ emptySubtitle }}</p>
       </div>
     </div>
-    <ul v-else class="divide-y divide-outline-gray-1" data-testid="mytasks-list">
+    <ul
+      v-else
+      class="divide-y divide-outline-gray-1"
+      data-testid="mytasks-list"
+    >
       <MyTaskRow
         v-for="t in sortedTasks"
         :key="t.name"
@@ -59,7 +60,8 @@ const projectMap = computed(() => {
 const sortedTasks = computed(() => {
   const priorityRank = { Urgent: 0, High: 1, Medium: 2, Low: 3 }
   return [...props.tasks].sort(
-    (a, b) => (priorityRank[a.priority] ?? 99) - (priorityRank[b.priority] ?? 99),
+    (a, b) =>
+      (priorityRank[a.priority] ?? 99) - (priorityRank[b.priority] ?? 99),
   )
 })
 </script>

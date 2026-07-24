@@ -2,8 +2,8 @@
   <div class="flex h-full w-full items-center justify-center">
     <div class="text-center">
       <component
-        v-if="icon"
         :is="icon"
+        v-if="icon"
         class="mx-auto h-8 w-8 text-ink-gray-5"
       />
       <h2 class="mt-3 text-lg font-medium text-ink-gray-9">{{ title }}</h2>

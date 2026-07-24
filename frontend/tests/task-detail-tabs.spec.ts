@@ -75,10 +75,7 @@ async function seedComment(
   expect(res.ok()).toBeTruthy()
 }
 
-async function listWorkflowStates(
-  request: APIRequestContext,
-  project: string,
-) {
+async function listWorkflowStates(request: APIRequestContext, project: string) {
   const res = await request.get(
     `${BASE}/api/method/frappe.client.get_list` +
       `?doctype=${encodeURIComponent('Orbit Workflow State')}` +

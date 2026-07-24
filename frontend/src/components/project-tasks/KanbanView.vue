@@ -1,5 +1,8 @@
 <template>
-  <div class="flex h-full overflow-x-auto px-4 py-3" data-testid="tasks-view-kanban">
+  <div
+    class="flex h-full overflow-x-auto px-4 py-3"
+    data-testid="tasks-view-kanban"
+  >
     <div
       v-for="col in columns"
       :key="col.state.name"
@@ -38,11 +41,7 @@
         @end="onDragEnd($event, col.state.name)"
       >
         <template #item="{ element: task }">
-          <KanbanCard
-            :task="task"
-            :state="col.state"
-            :type="getType(task)"
-          />
+          <KanbanCard :task="task" :state="col.state" :type="getType(task)" />
         </template>
       </draggable>
 
@@ -60,7 +59,9 @@
       class="mr-3 flex w-72 min-w-72 flex-col rounded-md bg-surface-gray-1"
     >
       <header class="flex items-center gap-2 px-3 py-2">
-        <span class="h-2.5 w-2.5 flex-shrink-0 rounded-full bg-surface-gray-3" />
+        <span
+          class="h-2.5 w-2.5 flex-shrink-0 rounded-full bg-surface-gray-3"
+        />
         <span class="text-sm font-medium text-ink-gray-9">No status</span>
         <span class="text-xs text-ink-gray-5">{{ orphanTasks.length }}</span>
       </header>
@@ -105,9 +106,7 @@ function rebuild() {
   )
   localColumns.value = sortedStates.map((s) => ({
     state: s,
-    items: props.filteredTasks.filter(
-      (t) => t.orbit_workflow_state === s.name,
-    ),
+    items: props.filteredTasks.filter((t) => t.orbit_workflow_state === s.name),
   }))
 }
 
@@ -121,9 +120,7 @@ const columns = computed(() => localColumns.value)
 
 const orphanTasks = computed(() => {
   const known = new Set(props.states.map((s) => s.name))
-  return props.filteredTasks.filter(
-    (t) => !known.has(t.orbit_workflow_state),
-  )
+  return props.filteredTasks.filter((t) => !known.has(t.orbit_workflow_state))
 })
 
 function columnTestId(state) {

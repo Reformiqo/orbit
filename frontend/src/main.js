@@ -47,16 +47,16 @@ for (const key in globalComponents) {
 
 let socket
 if (import.meta.env.DEV) {
-  frappeRequest({ url: '/api/method/orbit.www.orbit.get_context_for_dev' }).then(
-    (values) => {
-      for (const key in values) {
-        window[key] = values[key]
-      }
-      socket = initSocket()
-      app.config.globalProperties.$socket = socket
-      app.mount('#app')
-    },
-  )
+  frappeRequest({
+    url: '/api/method/orbit.www.orbit.get_context_for_dev',
+  }).then((values) => {
+    for (const key in values) {
+      window[key] = values[key]
+    }
+    socket = initSocket()
+    app.config.globalProperties.$socket = socket
+    app.mount('#app')
+  })
 } else {
   socket = initSocket()
   app.config.globalProperties.$socket = socket

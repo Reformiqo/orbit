@@ -30,38 +30,11 @@ repos:
       - id: ruff-format
         name: "Run ruff formatter"
 
-  - repo: https://github.com/pre-commit/mirrors-prettier
-    rev: v2.7.1
-    hooks:
-      - id: prettier
-        types_or: [javascript, vue, scss]
-        # Ignore any files that might contain jinja / bundles
-        exclude: |
-            (?x)^(
-                orbit/public/dist/.*|
-                .*node_modules.*|
-                .*boilerplate.*|
-                orbit/templates/includes/.*|
-                orbit/public/js/lib/.*
-            )$
-
-
-  - repo: https://github.com/pre-commit/mirrors-eslint
-    rev: v8.44.0
-    hooks:
-      - id: eslint
-        types_or: [javascript]
-        args: ['--quiet']
-        # Ignore any files that might contain jinja / bundles
-        exclude: |
-            (?x)^(
-                orbit/public/dist/.*|
-                cypress/.*|
-                .*node_modules.*|
-                .*boilerplate.*|
-                orbit/templates/includes/.*|
-                orbit/public/js/lib/.*
-            )$
+# NOTE: Frontend JS/Vue lint + format is NOT handled here. The Vue SPA in
+# /frontend has its own eslint (flat config) + prettier — run `yarn lint` /
+# `yarn format` there, and CI enforces it via the `frontend-lint` job. The old
+# repo-root eslint/prettier hooks used Frappe's desk config (jQuery globals),
+# which is wrong for a Vue 3 SPA, so they were removed.
 
 ci:
     autoupdate_schedule: weekly

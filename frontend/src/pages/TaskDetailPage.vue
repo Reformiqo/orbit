@@ -194,7 +194,9 @@
                     <span class="font-medium">{{ userName(a.owner) }}</span>
                     {{ summarizeChange(a) }}
                   </p>
-                  <p class="text-sm text-ink-gray-5">{{ timeAgo(a.creation) }}</p>
+                  <p class="text-sm text-ink-gray-5">
+                    {{ timeAgo(a.creation) }}
+                  </p>
                 </div>
               </li>
             </ul>
@@ -264,7 +266,9 @@
                   <span
                     v-if="currentState"
                     class="h-2 w-2 rounded-full"
-                    :style="{ backgroundColor: currentState.color || '#94A3B8' }"
+                    :style="{
+                      backgroundColor: currentState.color || '#94A3B8',
+                    }"
                   />
                   {{ currentState?.state_name || 'Set state' }}
                 </span>
@@ -364,7 +368,12 @@
               placeholder="Start date"
               :formatter="(v) => v"
               input-class="w-full"
-              @update:modelValue="(v) => { localStartDate = v || ''; saveField('exp_start_date', v || null) }"
+              @update:modelValue="
+                (v) => {
+                  localStartDate = v || ''
+                  saveField('exp_start_date', v || null)
+                }
+              "
             />
           </div>
         </TaskDetailSidebarRow>
@@ -376,7 +385,12 @@
               placeholder="Due date"
               :formatter="(v) => v"
               input-class="w-full"
-              @update:modelValue="(v) => { localDueDate = v || ''; saveField('exp_end_date', v || null) }"
+              @update:modelValue="
+                (v) => {
+                  localDueDate = v || ''
+                  saveField('exp_end_date', v || null)
+                }
+              "
             />
           </div>
         </TaskDetailSidebarRow>
@@ -394,7 +408,9 @@
                 </span>
                 <span v-else class="flex items-center gap-1.5 truncate">
                   <UserAvatar :email="task.orbit_reporter" size="xs" />
-                  <span class="truncate">{{ userName(task.orbit_reporter) }}</span>
+                  <span class="truncate">{{
+                    userName(task.orbit_reporter)
+                  }}</span>
                 </span>
                 <ChevronDown class="h-3.5 w-3.5 text-ink-gray-5" />
               </button>
@@ -404,7 +420,9 @@
                 class="w-80 rounded-md border border-outline-gray-2 bg-surface-white p-3 shadow-lg"
               >
                 <div class="relative mb-2 flex items-center">
-                  <Search class="absolute left-2.5 h-3.5 w-3.5 text-ink-gray-5" />
+                  <Search
+                    class="absolute left-2.5 h-3.5 w-3.5 text-ink-gray-5"
+                  />
                   <input
                     v-model="reporterSearch"
                     type="text"
@@ -457,7 +475,10 @@
                   >
                     {{ lbl }}
                   </span>
-                  <span v-if="labels.length > 3" class="text-xs text-ink-gray-5">
+                  <span
+                    v-if="labels.length > 3"
+                    class="text-xs text-ink-gray-5"
+                  >
                     +{{ labels.length - 3 }}
                   </span>
                 </span>
@@ -487,7 +508,14 @@
                     </button>
                   </span>
                 </div>
-                <form @submit.prevent="addLabel(labelDraft); labelDraft = ''">
+                <form
+                  @submit.prevent="
+                    () => {
+                      addLabel(labelDraft)
+                      labelDraft = ''
+                    }
+                  "
+                >
                   <input
                     v-model="labelDraft"
                     type="text"
@@ -507,7 +535,9 @@
         class="border-t border-outline-gray-1 px-5 py-4 text-sm text-ink-gray-5"
       >
         <p v-if="task.creation">Created {{ timeAgo(task.creation) }}</p>
-        <p v-if="task.modified" class="mt-1.5">Updated {{ timeAgo(task.modified) }}</p>
+        <p v-if="task.modified" class="mt-1.5">
+          Updated {{ timeAgo(task.modified) }}
+        </p>
       </div>
     </aside>
   </div>
@@ -688,14 +718,13 @@ const userAutocompleteOptions = computed(() =>
 )
 
 const assigneeAutocompleteValue = computed(() =>
-  assignees.value
-    .map((email) => {
-      const u = (users.data || []).find((x) => x.name === email)
-      return {
-        label: u?.full_name || email,
-        value: email,
-      }
-    }),
+  assignees.value.map((email) => {
+    const u = (users.data || []).find((x) => x.name === email)
+    return {
+      label: u?.full_name || email,
+      value: email,
+    }
+  }),
 )
 
 async function onAssigneesChange(next) {
@@ -872,7 +901,8 @@ function goBack() {
 }
 
 async function confirmDelete() {
-  if (!confirm(`Delete ${task.value?.orbit_display_id || props.taskId}?`)) return
+  if (!confirm(`Delete ${task.value?.orbit_display_id || props.taskId}?`))
+    return
   try {
     await createResource({
       url: 'frappe.client.delete',
@@ -892,11 +922,10 @@ const commentDraft = ref('')
 const submittingComment = ref(false)
 
 // TipTap outputs <p></p> for an empty doc — strip tags before checking.
-const commentHasContent = computed(() =>
-  commentDraft.value
-    .replace(/<[^>]*>/g, '')
-    .replace(/\s|&nbsp;/g, '')
-    .length > 0,
+const commentHasContent = computed(
+  () =>
+    commentDraft.value.replace(/<[^>]*>/g, '').replace(/\s|&nbsp;/g, '')
+      .length > 0,
 )
 
 async function loadComments() {
@@ -984,7 +1013,10 @@ function summarizeChange(a) {
     const d = typeof a.data === 'string' ? JSON.parse(a.data) : a.data
     const changed = d?.changed || []
     if (!changed.length) return 'made an update'
-    const fields = changed.map((c) => c[0]).slice(0, 3).join(', ')
+    const fields = changed
+      .map((c) => c[0])
+      .slice(0, 3)
+      .join(', ')
     return `changed ${fields}`
   } catch {
     return 'made an update'

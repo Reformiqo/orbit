@@ -24,14 +24,21 @@
       No projects yet
     </p>
     <Tree
-      v-else
       v-for="rootNode in treeNodes"
+      v-else
       :key="rootNode.id"
       :node="rootNode"
       node-key="id"
       :options="treeOptions"
     >
-      <template #node="{ node, hasChildren, isCollapsed: isNodeCollapsed, toggleCollapsed }">
+      <template
+        #node="{
+          node,
+          hasChildren,
+          isCollapsed: isNodeCollapsed,
+          toggleCollapsed,
+        }"
+      >
         <div
           class="group flex h-9 items-center gap-1 rounded pl-1 pr-2 transition-colors"
           :class="

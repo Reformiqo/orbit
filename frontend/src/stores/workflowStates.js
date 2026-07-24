@@ -11,7 +11,14 @@ export function useWorkflowStatesForProject(projectName) {
 
   const resource = createListResource({
     doctype: 'Orbit Workflow State',
-    fields: ['name', 'state_name', 'status_group', 'color', 'position', 'is_default'],
+    fields: [
+      'name',
+      'state_name',
+      'status_group',
+      'color',
+      'position',
+      'is_default',
+    ],
     filters: { project: projectName },
     orderBy: 'position asc',
     pageLength: 100,

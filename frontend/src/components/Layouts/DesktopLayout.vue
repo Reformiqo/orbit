@@ -22,10 +22,7 @@
       </template>
     </Dialog>
 
-    <Dialog
-      v-model="showSettingsPlaceholder"
-      :options="{ title: 'Settings' }"
-    >
+    <Dialog v-model="showSettingsPlaceholder" :options="{ title: 'Settings' }">
       <template #body-content>
         <p class="text-base text-ink-gray-7">
           Settings page is coming soon. This placeholder confirms the dropdown
@@ -40,8 +37,5 @@
 import AppSidebar from '@/components/Layouts/AppSidebar.vue'
 import WorkspaceOnboardingDialog from '@/components/WorkspaceOnboardingDialog.vue'
 import { Dialog } from 'frappe-ui'
-import {
-  showAboutModal,
-  showSettingsPlaceholder,
-} from '@/composables/modals'
+import { showAboutModal, showSettingsPlaceholder } from '@/composables/modals'
 </script>

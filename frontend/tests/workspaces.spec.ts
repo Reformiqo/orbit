@@ -3,7 +3,10 @@ import { test, expect, APIRequestContext } from '@playwright/test'
 // Clean workspaces created by these tests to keep runs idempotent.
 // Uses a whitelisted orbit.tests.seed.cleanup_test_workspaces method — GET-callable
 // so we don't fight CSRF on REST DELETE.
-async function cleanTestWorkspaces(request: APIRequestContext, baseURL: string) {
+async function cleanTestWorkspaces(
+  request: APIRequestContext,
+  baseURL: string,
+) {
   const res = await request.get(
     `${baseURL}/api/method/orbit.tests.seed.cleanup_test_workspaces?prefix=pw-`,
   )
@@ -23,7 +26,9 @@ test.describe('Workspaces — full-stack', () => {
     await cleanTestWorkspaces(request, baseURL)
   })
 
-  test('default workspace exists so onboarding is not blocking', async ({ page }) => {
+  test('default workspace exists so onboarding is not blocking', async ({
+    page,
+  }) => {
     // The seed creates a "default" workspace, so the onboarding dialog must
     // NOT be shown. Sidebar + main content should be interactive.
     await page.goto('/orbit')
@@ -39,12 +44,12 @@ test.describe('Workspaces — full-stack', () => {
     ).toHaveCount(0)
   })
 
-  test('create workspace via dialog and see it in the list', async ({ page }) => {
+  test('create workspace via dialog and see it in the list', async ({
+    page,
+  }) => {
     await page.goto('/orbit/workspaces')
 
-    await page
-      .getByTestId('workspaces-create-btn')
-      .click()
+    await page.getByTestId('workspaces-create-btn').click()
 
     // Dialog opens
     await expect(
@@ -60,15 +65,15 @@ test.describe('Workspaces — full-stack', () => {
       .getByLabel('Description (optional)')
       .fill('Playwright seed workspace.')
 
-    await page
-      .getByRole('button', { name: 'Create workspace' })
-      .click()
+    await page.getByRole('button', { name: 'Create workspace' }).click()
 
     // Row appears in the list
     await expect(page.getByTestId('workspaces-list')).toContainText(
       'PW Acme Inc.',
     )
-    await expect(page.getByTestId('workspaces-list')).toContainText('pw-acme-inc')
+    await expect(page.getByTestId('workspaces-list')).toContainText(
+      'pw-acme-inc',
+    )
   })
 
   test('slug validation blocks invalid input', async ({ page }) => {

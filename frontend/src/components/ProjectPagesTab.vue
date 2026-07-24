@@ -179,7 +179,11 @@ watch(
     if (alive.length) {
       router.replace({
         name: 'ProjectDetail',
-        params: { projectId: props.projectId, tab: 'pages', pageId: alive[0].name },
+        params: {
+          projectId: props.projectId,
+          tab: 'pages',
+          pageId: alive[0].name,
+        },
       })
     }
   },
@@ -316,7 +320,8 @@ async function toggleArchive() {
 
 async function deletePage() {
   if (!activePage.value) return
-  if (!window.confirm(`Delete "${activePage.value.title || 'this page'}"?`)) return
+  if (!window.confirm(`Delete "${activePage.value.title || 'this page'}"?`))
+    return
   const children = (pages.data || []).filter(
     (p) => p.parent_page === activePage.value.name,
   )

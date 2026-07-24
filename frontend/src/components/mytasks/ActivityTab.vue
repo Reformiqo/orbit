@@ -1,19 +1,12 @@
 <template>
   <div class="p-6">
     <h2 class="mb-4 text-lg font-medium text-ink-gray-9">Recent activity</h2>
-    <p
-      v-if="!recent.length"
-      class="text-base text-ink-gray-5"
-    >
+    <p v-if="!recent.length" class="text-base text-ink-gray-5">
       No recent activity yet. Task creates and updates you're involved in will
       show up here.
     </p>
     <ul v-else class="flex flex-col gap-5">
-      <li
-        v-for="t in recent"
-        :key="t.name"
-        class="flex items-start gap-3"
-      >
+      <li v-for="t in recent" :key="t.name" class="flex items-start gap-3">
         <span
           class="mt-0.5 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-surface-gray-2"
         >

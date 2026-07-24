@@ -68,9 +68,7 @@ test.describe('Project Overview tab', () => {
       await seedTask(request, projectId, `PW Overview Task ${i}`)
     }
 
-    await page.goto(
-      `/orbit/projects/${encodeURIComponent(projectId)}/overview`,
-    )
+    await page.goto(`/orbit/projects/${encodeURIComponent(projectId)}/overview`)
 
     await expect(page.getByTestId('project-overview')).toBeVisible()
     // Stat tiles
@@ -106,9 +104,7 @@ test.describe('Project Overview tab', () => {
   }) => {
     const projectId = await seedProject(request, 'PW Empty States', 'PWES')
 
-    await page.goto(
-      `/orbit/projects/${encodeURIComponent(projectId)}/modules`,
-    )
+    await page.goto(`/orbit/projects/${encodeURIComponent(projectId)}/modules`)
     await expect(page.getByTestId('project-modules-empty')).toBeVisible()
     await expect(
       page.getByRole('heading', { name: 'No modules yet' }),
@@ -125,9 +121,7 @@ test.describe('Project Overview tab', () => {
       page.getByRole('heading', { name: 'No milestones yet' }),
     ).toBeVisible()
 
-    await page.goto(
-      `/orbit/projects/${encodeURIComponent(projectId)}/views`,
-    )
+    await page.goto(`/orbit/projects/${encodeURIComponent(projectId)}/views`)
     await expect(page.getByTestId('project-views-empty')).toBeVisible()
     await expect(
       page.getByRole('heading', { name: 'No saved views yet' }),

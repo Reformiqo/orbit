@@ -1,8 +1,5 @@
 <template>
-  <Dialog
-    v-model="isOpen"
-    :options="{ size: '2xl' }"
-  >
+  <Dialog v-model="isOpen" :options="{ size: '2xl' }">
     <template #body>
       <div class="flex flex-col">
         <!-- Header: project chip -->
@@ -15,8 +12,8 @@
           </div>
           <button
             class="ml-auto flex h-7 w-7 items-center justify-center rounded text-ink-gray-5 hover:bg-surface-gray-2 hover:text-ink-gray-9"
-            @click="close"
             aria-label="Close"
+            @click="close"
           >
             <X class="h-4 w-4" />
           </button>
@@ -42,12 +39,11 @@
         />
 
         <!-- Pill action row -->
-        <div class="flex flex-wrap items-center gap-2 border-t border-outline-gray-1 px-6 py-3">
+        <div
+          class="flex flex-wrap items-center gap-2 border-t border-outline-gray-1 px-6 py-3"
+        >
           <!-- Status -->
-          <Dropdown
-            :options="stateOptions"
-            placement="bottom-start"
-          >
+          <Dropdown :options="stateOptions" placement="bottom-start">
             <template #default>
               <button
                 class="inline-flex items-center gap-1.5 rounded-md border border-outline-gray-2 px-2.5 py-1 text-sm text-ink-gray-8 transition-colors hover:bg-surface-gray-2"
@@ -55,7 +51,9 @@
               >
                 <span
                   class="h-2 w-2 rounded-full"
-                  :style="{ backgroundColor: selectedState?.color || '#94A3B8' }"
+                  :style="{
+                    backgroundColor: selectedState?.color || '#94A3B8',
+                  }"
                 />
                 {{ selectedState?.state_name || 'Status' }}
               </button>

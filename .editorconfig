@@ -8,11 +8,18 @@ insert_final_newline = true
 trim_trailing_whitespace = true
 charset = utf-8
 
-# python, js indentation settings
+# python, js indentation settings (Frappe desk / backend convention: tabs)
 [{*.py,*.js,*.vue,*.css,*.scss,*.html}]
 indent_style = tab
 indent_size = 4
 max_line_length = 99
+
+# The Vue SPA in /frontend follows the frappe/crm convention: 2-space, no tabs,
+# prettier-managed. Keep this in sync with frontend/.prettierrc.json.
+[frontend/**.{js,ts,mjs,vue,css,scss,json}]
+indent_style = space
+indent_size = 2
+max_line_length = 80
 
 # JSON files - mostly doctype schema files
 [{*.json}]

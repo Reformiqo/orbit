@@ -28,8 +28,7 @@ function getUserItems(query) {
       label: u.full_name || u.name,
       image: u.user_image || '',
       match:
-        normalise(u.name).includes(q) ||
-        normalise(u.full_name).includes(q),
+        normalise(u.name).includes(q) || normalise(u.full_name).includes(q),
     }))
   const matched = q ? scored.filter((u) => u.match) : scored
   return matched.slice(0, 10)
@@ -38,7 +37,8 @@ function getUserItems(query) {
 export function buildMentionExtension() {
   return Mention.configure({
     HTMLAttributes: {
-      class: 'orbit-mention rounded-md bg-surface-blue-1 px-1 py-0.5 text-ink-blue-3 font-medium',
+      class:
+        'orbit-mention rounded-md bg-surface-blue-1 px-1 py-0.5 text-ink-blue-3 font-medium',
     },
     renderHTML({ options, node }) {
       // Persist as a plain anchor-like span so Frappe's sanitizer keeps it.
@@ -48,7 +48,8 @@ export function buildMentionExtension() {
       return [
         'span',
         {
-          class: 'orbit-mention rounded-md bg-surface-blue-1 px-1 py-0.5 text-ink-blue-3 font-medium',
+          class:
+            'orbit-mention rounded-md bg-surface-blue-1 px-1 py-0.5 text-ink-blue-3 font-medium',
           'data-type': 'mention',
           'data-id': id,
           'data-label': label,

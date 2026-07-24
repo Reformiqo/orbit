@@ -284,9 +284,10 @@ test.describe('Task editor — TipTap mentions & slash commands', () => {
       .first()
     await expect(posted).toBeVisible()
     await expect(posted.locator('[data-type="mention"]')).toHaveCount(1)
-    await expect(
-      posted.locator('[data-type="mention"]'),
-    ).toHaveAttribute('data-id', 'orbit-tester@example.com')
+    await expect(posted.locator('[data-type="mention"]')).toHaveAttribute(
+      'data-id',
+      'orbit-tester@example.com',
+    )
   })
 
   test('description editor emits HTML output (profile="issue-description")', async ({

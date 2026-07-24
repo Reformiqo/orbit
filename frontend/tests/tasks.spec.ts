@@ -60,9 +60,7 @@ test.describe('Tasks tab — full-stack', () => {
 
     // Title input is borderless — locate by placeholder
     await page.getByPlaceholder('Title').fill('PW First Task')
-    await page
-      .getByRole('button', { name: 'Create task', exact: true })
-      .click()
+    await page.getByRole('button', { name: 'Create task', exact: true }).click()
 
     // Dialog closes; task appears in the flat list with its display ID.
     await expect(
@@ -84,9 +82,7 @@ test.describe('Tasks tab — full-stack', () => {
     // Create one task so the list header renders
     await page.getByTestId('tasks-create-btn').click()
     await page.getByPlaceholder('Title').fill('PW Anchor')
-    await page
-      .getByRole('button', { name: 'Create task', exact: true })
-      .click()
+    await page.getByRole('button', { name: 'Create task', exact: true }).click()
 
     // Page uses "Tasks" / "New task", never "work item(s)"
     const main = page.locator('main')

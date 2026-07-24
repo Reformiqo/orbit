@@ -50,10 +50,7 @@ async function getCsrfToken(page: Page): Promise<string> {
   return token
 }
 
-async function listWorkflowStates(
-  request: APIRequestContext,
-  project: string,
-) {
+async function listWorkflowStates(request: APIRequestContext, project: string) {
   const res = await request.get(
     `${BASE}/api/method/frappe.client.get_list` +
       `?doctype=${encodeURIComponent('Orbit Workflow State')}` +
@@ -82,22 +79,21 @@ async function createTask(
     exp_end_date?: string
   },
 ) {
-  const res = await request.post(
-    `${BASE}/api/method/frappe.client.insert`,
-    {
-      headers: { 'X-Frappe-CSRF-Token': csrfToken },
-      form: {
-        doc: JSON.stringify({
-          doctype: 'Task',
-          status: 'Open',
-          ...payload,
-        }),
-      },
+  const res = await request.post(`${BASE}/api/method/frappe.client.insert`, {
+    headers: { 'X-Frappe-CSRF-Token': csrfToken },
+    form: {
+      doc: JSON.stringify({
+        doctype: 'Task',
+        status: 'Open',
+        ...payload,
+      }),
     },
-  )
+  })
   if (!res.ok()) {
     const text = await res.text()
-    throw new Error(`insert Task failed (HTTP ${res.status()}): ${text.slice(0, 300)}`)
+    throw new Error(
+      `insert Task failed (HTTP ${res.status()}): ${text.slice(0, 300)}`,
+    )
   }
   const body = await res.json()
   return body.message.name as string
@@ -191,9 +187,7 @@ test.describe('Analytics — full-stack', () => {
     const completedVal = await page
       .getByTestId('stat-completed-value')
       .innerText()
-    const overdueVal = await page
-      .getByTestId('stat-overdue-value')
-      .innerText()
+    const overdueVal = await page.getByTestId('stat-overdue-value').innerText()
     expect(Number(openVal.replace(/,/g, ''))).toBeGreaterThanOrEqual(3)
     expect(Number(completedVal.replace(/,/g, ''))).toBeGreaterThanOrEqual(1)
     expect(Number(overdueVal.replace(/,/g, ''))).toBeGreaterThanOrEqual(1)

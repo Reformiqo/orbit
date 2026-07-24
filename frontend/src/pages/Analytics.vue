@@ -142,8 +142,7 @@ const tasks = useAllTasks()
 const states = useAllWorkflowStates()
 
 const loading = computed(
-  () =>
-    (tasks.loading && !tasks.data) || (states.loading && !states.data),
+  () => (tasks.loading && !tasks.data) || (states.loading && !states.data),
 )
 
 // --- helpers ------------------------------------------------------------
@@ -388,9 +387,7 @@ const topAssignees = computed(() => {
 function displayNameFromEmail(email) {
   if (!email) return ''
   const local = email.split('@')[0]
-  return local
-    .replace(/[._-]+/g, ' ')
-    .replace(/\b\w/g, (c) => c.toUpperCase())
+  return local.replace(/[._-]+/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
 }
 
 const assigneeAxisConfig = computed(() => ({

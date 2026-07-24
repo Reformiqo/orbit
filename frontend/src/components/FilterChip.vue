@@ -8,7 +8,7 @@
       class="flex items-center gap-2 py-1.5 pl-3 pr-3 text-ink-gray-8 transition-colors hover:bg-surface-gray-2"
       @click="$emit('click', $event)"
     >
-      <component v-if="icon" :is="icon" class="h-4 w-4 text-ink-gray-6" />
+      <component :is="icon" v-if="icon" class="h-4 w-4 text-ink-gray-6" />
       <span class="font-medium">{{ label }}</span>
       <span class="text-ink-gray-5">is</span>
       <span class="text-ink-gray-9">{{ value }}</span>
@@ -16,8 +16,8 @@
     <button
       type="button"
       class="flex items-center border-l border-outline-gray-2 px-2 py-1.5 text-ink-gray-5 transition-colors hover:bg-surface-gray-2 hover:text-ink-gray-9"
-      @click.stop="$emit('remove')"
       :title="`Remove ${label} filter`"
+      @click.stop="$emit('remove')"
     >
       <X class="h-4 w-4" />
     </button>

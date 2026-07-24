@@ -63,7 +63,6 @@
         </template>
       </Tabs>
     </div>
-
   </div>
 </template>
 
@@ -130,5 +129,4 @@ const involvedTasks = computed(() => {
     (t) => parseAssign(t._assign).includes(me) || isCreator(t, me),
   )
 })
-
 </script>

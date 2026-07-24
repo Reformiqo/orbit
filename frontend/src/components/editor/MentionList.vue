@@ -66,10 +66,7 @@ function selectItem(index) {
 
 function initials(item) {
   const label = item.label || item.id || ''
-  const parts = label
-    .trim()
-    .split(/\s+/)
-    .filter(Boolean)
+  const parts = label.trim().split(/\s+/).filter(Boolean)
   if (!parts.length) return '?'
   if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase()
   return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase()
@@ -92,8 +89,7 @@ function onKeyDown({ event }) {
     return true
   }
   if (event.key === 'ArrowDown') {
-    selectedIndex.value =
-      (selectedIndex.value + 1) % props.items.length
+    selectedIndex.value = (selectedIndex.value + 1) % props.items.length
     return true
   }
   if (event.key === 'Enter' || event.key === 'Tab') {

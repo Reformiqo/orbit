@@ -12,8 +12,8 @@
       <Button
         variant="solid"
         class="!h-9 !bg-ink-gray-9 !text-white hover:!bg-ink-gray-8"
-        @click="showCreate = true"
         data-testid="workspaces-create-btn"
+        @click="showCreate = true"
       >
         <template #prefix><Plus class="h-4 w-4" /></template>
         Create
@@ -55,7 +55,11 @@
       </div>
 
       <!-- List -->
-      <ul v-else class="divide-y divide-outline-gray-1" data-testid="workspaces-list">
+      <ul
+        v-else
+        class="divide-y divide-outline-gray-1"
+        data-testid="workspaces-list"
+      >
         <li
           v-for="ws in workspaces.data"
           :key="ws.name"
@@ -80,7 +84,9 @@
               />
             </div>
             <div class="mt-1 flex items-center gap-2 text-sm text-ink-gray-5">
-              <code class="rounded bg-surface-gray-2 px-1.5 py-0.5">{{ ws.slug }}</code>
+              <code class="rounded bg-surface-gray-2 px-1.5 py-0.5">{{
+                ws.slug
+              }}</code>
               <span v-if="ws.description" class="truncate">
                 · {{ ws.description }}
               </span>

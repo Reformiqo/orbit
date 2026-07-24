@@ -67,8 +67,8 @@
         <!-- Notifications -->
         <section
           v-for="bucket in notificationBuckets"
-          :key="bucket.key"
           v-show="bucket.items.length"
+          :key="bucket.key"
           class="mb-6"
           :data-testid="`inbox-bucket-${bucket.key}`"
         >
@@ -175,7 +175,9 @@
                   <span v-if="item.reference_name">
                     · {{ item.reference_name }}
                   </span>
-                  <span v-if="item.date"> · due {{ formatDate(item.date) }}</span>
+                  <span v-if="item.date">
+                    · due {{ formatDate(item.date) }}</span
+                  >
                 </p>
               </div>
               <ChevronRight
@@ -311,7 +313,10 @@ const items = computed(() => notifications.data || [])
 const unreadCount = computed(() => items.value.filter((n) => !n.read).length)
 
 const hasAnything = computed(
-  () => items.value.length > 0 || openTodos.value.length > 0 || closedTodos.value.length > 0,
+  () =>
+    items.value.length > 0 ||
+    openTodos.value.length > 0 ||
+    closedTodos.value.length > 0,
 )
 
 const notificationBuckets = computed(() => {
@@ -321,7 +326,9 @@ const notificationBuckets = computed(() => {
   const now = Date.now()
   const oneDay = 86400000
   for (const n of items.value) {
-    const created = new Date(String(n.creation || '').replace(' ', 'T')).getTime()
+    const created = new Date(
+      String(n.creation || '').replace(' ', 'T'),
+    ).getTime()
     const age = now - created
     if (age < oneDay) today.push(n)
     else if (age < 7 * oneDay) week.push(n)

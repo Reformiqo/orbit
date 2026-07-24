@@ -1,10 +1,5 @@
 <template>
-  <RouterLink
-    v-if="to"
-    :to="to"
-    custom
-    v-slot="{ isActive, navigate }"
-  >
+  <RouterLink v-if="to" v-slot="{ isActive, navigate }" :to="to" custom>
     <button
       class="flex h-9 w-full cursor-pointer items-center rounded text-ink-gray-8 transition-colors duration-150 focus:outline-none focus-visible:ring-2 focus-visible:ring-outline-gray-3"
       :class="
@@ -17,14 +12,11 @@
         :class="isCollapsed ? 'justify-center px-1' : ''"
       >
         <component
-          v-if="icon"
           :is="icon"
+          v-if="icon"
           class="h-5 w-5 flex-shrink-0 text-ink-gray-8"
         />
-        <span
-          v-show="!isCollapsed"
-          class="flex-1 truncate text-left text-base"
-        >
+        <span v-show="!isCollapsed" class="flex-1 truncate text-left text-base">
           {{ label }}
         </span>
         <slot v-if="!isCollapsed" name="right" />
@@ -41,14 +33,11 @@
       :class="isCollapsed ? 'justify-center px-1' : ''"
     >
       <component
-        v-if="icon"
         :is="icon"
+        v-if="icon"
         class="h-5 w-5 flex-shrink-0 text-ink-gray-8"
       />
-      <span
-        v-show="!isCollapsed"
-        class="flex-1 truncate text-left text-base"
-      >
+      <span v-show="!isCollapsed" class="flex-1 truncate text-left text-base">
         {{ label }}
       </span>
       <slot v-if="!isCollapsed" name="right" />

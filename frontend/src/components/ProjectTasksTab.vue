@@ -141,10 +141,7 @@
       </div>
 
       <!-- Assignee chip -->
-      <Popover
-        v-if="chipsToShow.includes('assignee')"
-        placement="bottom-start"
-      >
+      <Popover v-if="chipsToShow.includes('assignee')" placement="bottom-start">
         <template #target="{ togglePopover }">
           <FilterChip
             :icon="Users"
@@ -198,9 +195,7 @@
                 />
                 <span class="text-sm text-ink-gray-8">
                   Me
-                  <span class="text-ink-gray-5"
-                    >({{ session.fullName }})</span
-                  >
+                  <span class="text-ink-gray-5">({{ session.fullName }})</span>
                 </span>
               </label>
               <div class="my-1 border-t border-outline-gray-1" />
@@ -232,10 +227,7 @@
       </Popover>
 
       <!-- Status chip -->
-      <Popover
-        v-if="chipsToShow.includes('status')"
-        placement="bottom-start"
-      >
+      <Popover v-if="chipsToShow.includes('status')" placement="bottom-start">
         <template #target="{ togglePopover }">
           <FilterChip
             :icon="CircleDashed"
@@ -271,10 +263,7 @@
       </Popover>
 
       <!-- Priority chip -->
-      <Popover
-        v-if="chipsToShow.includes('priority')"
-        placement="bottom-start"
-      >
+      <Popover v-if="chipsToShow.includes('priority')" placement="bottom-start">
         <template #target="{ togglePopover }">
           <FilterChip
             :icon="Signal"
@@ -306,10 +295,7 @@
       </Popover>
 
       <!-- Due date chip -->
-      <Popover
-        v-if="chipsToShow.includes('dueDate')"
-        placement="bottom-start"
-      >
+      <Popover v-if="chipsToShow.includes('dueDate')" placement="bottom-start">
         <template #target="{ togglePopover }">
           <FilterChip
             :icon="CalendarClock"
@@ -559,7 +545,12 @@ const viewTypes = [
   { key: 'list', label: 'List', icon: List, disabled: false },
   { key: 'kanban', label: 'Kanban', icon: LayoutGrid, disabled: false },
   { key: 'calendar', label: 'Calendar', icon: Calendar, disabled: false },
-  { key: 'spreadsheet', label: 'Spreadsheet', icon: LayoutList, disabled: false },
+  {
+    key: 'spreadsheet',
+    label: 'Spreadsheet',
+    icon: LayoutList,
+    disabled: false,
+  },
 ]
 
 const priorityOptions = ['Urgent', 'High', 'Medium', 'Low']
@@ -717,7 +708,8 @@ const filteredMembers = computed(() => {
 function taskAssignees(t) {
   if (!t._assign) return []
   try {
-    const parsed = typeof t._assign === 'string' ? JSON.parse(t._assign) : t._assign
+    const parsed =
+      typeof t._assign === 'string' ? JSON.parse(t._assign) : t._assign
     return Array.isArray(parsed) ? parsed : []
   } catch {
     return []

@@ -58,8 +58,8 @@
           </div>
           <button
             class="flex h-7 w-7 items-center justify-center rounded text-ink-gray-6 hover:bg-surface-gray-2 hover:text-ink-gray-9"
-            @click="close"
             aria-label="Close"
+            @click="close"
           >
             <X class="h-4 w-4" />
           </button>
@@ -94,7 +94,9 @@
                     <span
                       v-if="currentState"
                       class="h-2 w-2 rounded-full"
-                      :style="{ backgroundColor: currentState.color || '#94A3B8' }"
+                      :style="{
+                        backgroundColor: currentState.color || '#94A3B8',
+                      }"
                     />
                     {{ currentState?.state_name || 'Set status' }}
                   </button>
@@ -175,7 +177,9 @@
                       class="w-64 rounded-md border border-outline-gray-2 bg-surface-white p-2 shadow-lg"
                     >
                       <div class="relative mb-1.5 flex items-center">
-                        <Search class="absolute left-2 h-3 w-3 text-ink-gray-5" />
+                        <Search
+                          class="absolute left-2 h-3 w-3 text-ink-gray-5"
+                        />
                         <input
                           v-model="userSearch"
                           type="text"
@@ -190,12 +194,20 @@
                           class="flex w-full cursor-pointer items-center gap-2 rounded px-2 py-1 text-left hover:bg-surface-gray-2"
                           :disabled="assignees.includes(u.name)"
                           :class="{
-                            'cursor-not-allowed opacity-50': assignees.includes(u.name),
+                            'cursor-not-allowed opacity-50': assignees.includes(
+                              u.name,
+                            ),
                           }"
                           @click="addAssignee(u.name)"
                         >
-                          <UserAvatar :email="u.name" :name="u.full_name" size="xs" />
-                          <span class="truncate text-sm text-ink-gray-8">{{ u.full_name || u.name }}</span>
+                          <UserAvatar
+                            :email="u.name"
+                            :name="u.full_name"
+                            size="xs"
+                          />
+                          <span class="truncate text-sm text-ink-gray-8">{{
+                            u.full_name || u.name
+                          }}</span>
                         </button>
                       </div>
                     </div>
@@ -264,7 +276,13 @@
 
 <script setup>
 import { computed, h, ref, watch } from 'vue'
-import { Badge, Dropdown, Popover, createResource, frappeRequest } from 'frappe-ui'
+import {
+  Badge,
+  Dropdown,
+  Popover,
+  createResource,
+  frappeRequest,
+} from 'frappe-ui'
 import X from '~icons/lucide/x'
 import Plus from '~icons/lucide/plus'
 import Search from '~icons/lucide/search'
@@ -301,7 +319,9 @@ const justSaved = ref(false)
 let savedTimer = null
 
 const currentState = computed(
-  () => props.state || props.states.find((s) => s.name === props.task?.orbit_workflow_state),
+  () =>
+    props.state ||
+    props.states.find((s) => s.name === props.task?.orbit_workflow_state),
 )
 
 const stateOptions = computed(() =>

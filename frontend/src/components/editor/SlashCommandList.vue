@@ -28,10 +28,7 @@
         <span class="truncate font-medium text-ink-gray-9">
           {{ item.title }}
         </span>
-        <span
-          v-if="item.description"
-          class="truncate text-xs text-ink-gray-5"
-        >
+        <span v-if="item.description" class="truncate text-xs text-ink-gray-5">
           {{ item.description }}
         </span>
       </span>
@@ -77,8 +74,7 @@ function onKeyDown({ event }) {
     return true
   }
   if (event.key === 'ArrowDown') {
-    selectedIndex.value =
-      (selectedIndex.value + 1) % props.items.length
+    selectedIndex.value = (selectedIndex.value + 1) % props.items.length
     return true
   }
   if (event.key === 'Enter' || event.key === 'Tab') {

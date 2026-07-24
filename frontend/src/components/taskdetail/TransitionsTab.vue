@@ -20,7 +20,9 @@
             >
               <span
                 class="h-2 w-2 rounded-full"
-                :style="{ backgroundColor: stateColor(entry.from) || '#94A3B8' }"
+                :style="{
+                  backgroundColor: stateColor(entry.from) || '#94A3B8',
+                }"
               />
               {{ stateName(entry.from) }}
             </span>

@@ -10,10 +10,7 @@
         {{ selectedIds.size }} selected
       </span>
       <div class="flex items-center gap-2">
-        <Button
-          variant="subtle"
-          @click="selectedIds = new Set()"
-        >
+        <Button variant="subtle" @click="selectedIds = new Set()">
           Clear
         </Button>
         <Button
@@ -106,10 +103,7 @@
               </span>
             </td>
             <td class="px-3 py-1" @click.stop>
-              <Dropdown
-                :options="stateOptionsFor(t)"
-                placement="bottom-start"
-              >
+              <Dropdown :options="stateOptionsFor(t)" placement="bottom-start">
                 <template #default>
                   <button
                     class="inline-flex items-center gap-1.5 rounded border border-outline-gray-2 px-1.5 py-0.5 text-xs text-ink-gray-7 hover:bg-surface-gray-2"
@@ -172,7 +166,10 @@
             </td>
           </tr>
           <tr v-if="!sortedTasks.length">
-            <td colspan="9" class="px-5 py-8 text-center text-sm text-ink-gray-5">
+            <td
+              colspan="9"
+              class="px-5 py-8 text-center text-sm text-ink-gray-5"
+            >
               No tasks.
             </td>
           </tr>
@@ -331,7 +328,7 @@ async function updateField(task, fieldname, value) {
 async function confirmAndDelete() {
   const ids = Array.from(selectedIds.value)
   if (!ids.length) return
-  // eslint-disable-next-line no-alert
+
   const ok = confirm(
     `Delete ${ids.length} task${ids.length === 1 ? '' : 's'}? This cannot be undone.`,
   )

@@ -54,9 +54,7 @@ test.describe('Project Settings tab', () => {
     request,
   }) => {
     const projectId = await seedProject(request, 'PW Settings Render', 'PWSR')
-    await page.goto(
-      `/orbit/projects/${encodeURIComponent(projectId)}/settings`,
-    )
+    await page.goto(`/orbit/projects/${encodeURIComponent(projectId)}/settings`)
 
     // Wait for the settings tab to mount (avoids the fleeting "Project not
     // found" state that can render if the createResource race is lost).
@@ -76,9 +74,7 @@ test.describe('Project Settings tab', () => {
     request,
   }) => {
     const projectId = await seedProject(request, 'PW Settings Save', 'PWSS')
-    await page.goto(
-      `/orbit/projects/${encodeURIComponent(projectId)}/settings`,
-    )
+    await page.goto(`/orbit/projects/${encodeURIComponent(projectId)}/settings`)
 
     await expect(page.getByTestId('project-settings')).toBeVisible({
       timeout: 10_000,
@@ -100,9 +96,7 @@ test.describe('Project Settings tab', () => {
     request,
   }) => {
     const projectId = await seedProject(request, 'PW Settings Bad', 'PWSB')
-    await page.goto(
-      `/orbit/projects/${encodeURIComponent(projectId)}/settings`,
-    )
+    await page.goto(`/orbit/projects/${encodeURIComponent(projectId)}/settings`)
 
     await expect(page.getByTestId('project-settings')).toBeVisible({
       timeout: 10_000,
@@ -122,14 +116,8 @@ test.describe('Project Settings tab', () => {
     page,
     request,
   }) => {
-    const projectId = await seedProject(
-      request,
-      'PW Settings Delete',
-      'PWSD',
-    )
-    await page.goto(
-      `/orbit/projects/${encodeURIComponent(projectId)}/settings`,
-    )
+    const projectId = await seedProject(request, 'PW Settings Delete', 'PWSD')
+    await page.goto(`/orbit/projects/${encodeURIComponent(projectId)}/settings`)
 
     await expect(page.getByTestId('project-settings')).toBeVisible({
       timeout: 10_000,

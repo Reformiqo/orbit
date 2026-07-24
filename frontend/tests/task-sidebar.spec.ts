@@ -85,7 +85,9 @@ test.describe('Task detail sidebar — editable fields', () => {
 
     // DatePicker (frappe-ui) exposes a TextInput with allowCustom=true, so we
     // can type the ISO date and press Enter to commit.
-    const startInput = page.getByTestId('sidebar-start-date').getByRole('textbox')
+    const startInput = page
+      .getByTestId('sidebar-start-date')
+      .getByRole('textbox')
     const dueInput = page.getByTestId('sidebar-due-date').getByRole('textbox')
     await expect(startInput).toBeVisible()
     await expect(dueInput).toBeVisible()
@@ -138,9 +140,7 @@ test.describe('Task detail sidebar — editable fields', () => {
 
     // Capture console + network failures for diagnosis.
     page.on('console', (msg) => {
-      if (msg.type() === 'error')
-        // eslint-disable-next-line no-console
-        console.log('[page error]', msg.text())
+      if (msg.type() === 'error') console.log('[page error]', msg.text())
     })
     page.on('pageerror', (err) => console.log('[page exception]', err.message))
     page.on('response', async (r) => {
@@ -166,7 +166,10 @@ test.describe('Task detail sidebar — editable fields', () => {
     await trigger.click()
     const combo = page.getByRole('combobox')
     await combo.fill('Orbit Tester')
-    await page.getByRole('option', { name: /Orbit Tester/ }).first().click()
+    await page
+      .getByRole('option', { name: /Orbit Tester/ })
+      .first()
+      .click()
 
     await expect
       .poll(() => readTaskField(request, task, '_assign'), { timeout: 8000 })
@@ -179,7 +182,10 @@ test.describe('Task detail sidebar — editable fields', () => {
 
     // And deselecting must actually unassign — impossible while the page
     // believed the current assignee list was empty.
-    await page.getByRole('option', { name: /Orbit Tester/ }).first().click()
+    await page
+      .getByRole('option', { name: /Orbit Tester/ })
+      .first()
+      .click()
     await expect
       .poll(() => readTaskField(request, task, '_assign'), { timeout: 8000 })
       .not.toContain('orbit-tester@example.com')

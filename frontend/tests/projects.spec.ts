@@ -64,9 +64,7 @@ test.describe('Projects — full-stack', () => {
     // Projects index page also shows it
     await page.goto('/orbit/projects')
     await expect(
-      page
-        .getByTestId('projects-list')
-        .getByText('PW Mobile App'),
+      page.getByTestId('projects-list').getByText('PW Mobile App'),
     ).toBeVisible()
   })
 
@@ -78,9 +76,7 @@ test.describe('Projects — full-stack', () => {
     await page.getByLabel('Identifier').fill('1BAD')
     await page.getByRole('button', { name: 'Create project' }).click()
 
-    await expect(page.getByRole('alert')).toContainText(
-      /Identifier must be/i,
-    )
+    await expect(page.getByRole('alert')).toContainText(/Identifier must be/i)
   })
 
   test('open project detail and switch tabs', async ({ page, request }) => {

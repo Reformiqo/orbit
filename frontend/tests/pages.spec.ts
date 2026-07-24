@@ -37,7 +37,12 @@ async function seedProject(
 async function seedPage(
   request: APIRequestContext,
   baseURL: string,
-  opts: { title: string; project: string; parentPage?: string; content?: string },
+  opts: {
+    title: string
+    project: string
+    parentPage?: string
+    content?: string
+  },
 ): Promise<string> {
   const params = new URLSearchParams({
     title: opts.title,

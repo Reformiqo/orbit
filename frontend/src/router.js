@@ -2,10 +2,26 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
   { path: '/', name: 'Home', component: () => import('@/pages/Home.vue') },
-  { path: '/inbox', name: 'Inbox', component: () => import('@/pages/Inbox.vue') },
-  { path: '/my-tasks', name: 'MyTasks', component: () => import('@/pages/MyTasks.vue') },
-  { path: '/workspaces', name: 'Workspaces', component: () => import('@/pages/Workspaces.vue') },
-  { path: '/projects', name: 'Projects', component: () => import('@/pages/Projects.vue') },
+  {
+    path: '/inbox',
+    name: 'Inbox',
+    component: () => import('@/pages/Inbox.vue'),
+  },
+  {
+    path: '/my-tasks',
+    name: 'MyTasks',
+    component: () => import('@/pages/MyTasks.vue'),
+  },
+  {
+    path: '/workspaces',
+    name: 'Workspaces',
+    component: () => import('@/pages/Workspaces.vue'),
+  },
+  {
+    path: '/projects',
+    name: 'Projects',
+    component: () => import('@/pages/Projects.vue'),
+  },
   // Full-page task detail. More specific than the generic tab route below,
   // so Vue Router matches it first.
   {
@@ -23,7 +39,11 @@ const routes = [
     component: () => import('@/pages/ProjectDetail.vue'),
     props: true,
   },
-  { path: '/analytics', name: 'Analytics', component: () => import('@/pages/Analytics.vue') },
+  {
+    path: '/analytics',
+    name: 'Analytics',
+    component: () => import('@/pages/Analytics.vue'),
+  },
 ]
 
 const router = createRouter({

@@ -7,19 +7,12 @@
       <div
         class="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-surface-gray-2"
       >
-        <component
-          v-if="icon"
-          :is="icon"
-          class="h-7 w-7 text-ink-gray-6"
-        />
+        <component :is="icon" v-if="icon" class="h-7 w-7 text-ink-gray-6" />
       </div>
       <h2 class="mt-4 text-lg font-medium text-ink-gray-9">{{ title }}</h2>
       <p class="mt-2 text-sm text-ink-gray-6">{{ description }}</p>
       <div v-if="ctaLabel" class="mt-5">
-        <span
-          class="group inline-flex"
-          :title="ctaTooltip || ''"
-        >
+        <span class="group inline-flex" :title="ctaTooltip || ''">
           <Button
             variant="solid"
             :disabled="ctaDisabled"

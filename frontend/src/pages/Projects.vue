@@ -50,7 +50,11 @@
         </div>
       </div>
 
-      <ul v-else class="divide-y divide-outline-gray-1" data-testid="projects-list">
+      <ul
+        v-else
+        class="divide-y divide-outline-gray-1"
+        data-testid="projects-list"
+      >
         <li
           v-for="p in projects.data"
           :key="p.name"

@@ -113,16 +113,37 @@ test.describe('documentation screenshots', () => {
     await cleanup(request)
 
     // Rich demo project with several tasks in different states.
-    const project = await seedProject(
+    const project = await seedProject(request, 'SHOT Mobile Launch', 'MOBILE')
+    const t1 = await seedTask(
       request,
-      'SHOT Mobile Launch',
-      'MOBILE',
+      project,
+      'SHOT Design onboarding flow',
+      'Story',
     )
-    const t1 = await seedTask(request, project, 'SHOT Design onboarding flow', 'Story')
-    const t2 = await seedTask(request, project, 'SHOT Crash on Android 12', 'Bug')
-    const t3 = await seedTask(request, project, 'SHOT Payment gateway review', 'Task')
-    const t4 = await seedTask(request, project, 'SHOT Q3 analytics rollout', 'Epic')
-    const t5 = await seedTask(request, project, 'SHOT Investigate sync lag', 'Query')
+    const t2 = await seedTask(
+      request,
+      project,
+      'SHOT Crash on Android 12',
+      'Bug',
+    )
+    const t3 = await seedTask(
+      request,
+      project,
+      'SHOT Payment gateway review',
+      'Task',
+    )
+    const t4 = await seedTask(
+      request,
+      project,
+      'SHOT Q3 analytics rollout',
+      'Epic',
+    )
+    const t5 = await seedTask(
+      request,
+      project,
+      'SHOT Investigate sync lag',
+      'Query',
+    )
 
     const today = new Date()
     const toISO = (d: Date) =>
@@ -226,15 +247,24 @@ test.describe('documentation screenshots', () => {
     await shoot(page, '06-project-tasks-list')
 
     // Kanban: click the view toggle
-    await page.locator('button[title="Kanban"]').click().catch(() => {})
+    await page
+      .locator('button[title="Kanban"]')
+      .click()
+      .catch(() => {})
     await page.waitForTimeout(800)
     await shoot(page, '07-project-tasks-kanban')
 
-    await page.locator('button[title="Calendar"]').click().catch(() => {})
+    await page
+      .locator('button[title="Calendar"]')
+      .click()
+      .catch(() => {})
     await page.waitForTimeout(800)
     await shoot(page, '08-project-tasks-calendar')
 
-    await page.locator('button[title="Spreadsheet"]').click().catch(() => {})
+    await page
+      .locator('button[title="Spreadsheet"]')
+      .click()
+      .catch(() => {})
     await page.waitForTimeout(800)
     await shoot(page, '09-project-tasks-spreadsheet')
   })

@@ -42,7 +42,10 @@ async function seedTask(
   return body.message as string
 }
 
-async function getStatesForProject(request: APIRequestContext, project: string) {
+async function getStatesForProject(
+  request: APIRequestContext,
+  project: string,
+) {
   const res = await request.get(
     `${BASE}/api/method/orbit.tests.seed.list_project_states` +
       `?project=${encodeURIComponent(project)}`,
@@ -164,8 +167,12 @@ test.describe('Task views — Kanban / Calendar / Spreadsheet / List', () => {
     }
 
     // Cards are visible
-    await expect(page.getByTestId('kanban-card').filter({ hasText: 'PW K Task 1' })).toBeVisible()
-    await expect(page.getByTestId('kanban-card').filter({ hasText: 'PW K Task 3' })).toBeVisible()
+    await expect(
+      page.getByTestId('kanban-card').filter({ hasText: 'PW K Task 1' }),
+    ).toBeVisible()
+    await expect(
+      page.getByTestId('kanban-card').filter({ hasText: 'PW K Task 3' }),
+    ).toBeVisible()
 
     // Move t1 to the last state via the backend (vuedraggable DnD is flaky
     // in headless tests — we exercise the network path that the UI uses and
@@ -239,7 +246,9 @@ test.describe('Task views — Kanban / Calendar / Spreadsheet / List', () => {
     await expect(rows.first()).toContainText('PW S Charlie')
 
     // Select two rows → bulk action bar appears.
-    const checkboxes = page.locator('[data-testid="sheet-row"] input[type="checkbox"]')
+    const checkboxes = page.locator(
+      '[data-testid="sheet-row"] input[type="checkbox"]',
+    )
     await checkboxes.nth(0).check()
     await checkboxes.nth(1).check()
     await expect(page.getByTestId('spreadsheet-bulk-bar')).toBeVisible()

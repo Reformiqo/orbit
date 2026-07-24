@@ -13,10 +13,7 @@
       >
         {{ displayValue }}
       </span>
-      <span
-        v-if="hint"
-        class="text-sm text-ink-gray-5"
-      >
+      <span v-if="hint" class="text-sm text-ink-gray-5">
         {{ hint }}
       </span>
     </div>

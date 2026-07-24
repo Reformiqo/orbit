@@ -103,8 +103,8 @@
         <div>
           <p class="text-sm font-medium text-ink-gray-9">Delete project</p>
           <p class="mt-0.5 text-xs text-ink-gray-5">
-            Permanently deletes this project. Tasks and pages attached to it
-            may be orphaned.
+            Permanently deletes this project. Tasks and pages attached to it may
+            be orphaned.
           </p>
         </div>
         <Button
@@ -289,7 +289,10 @@ function validate(field) {
   if (field === 'project_name' && !form.project_name.trim()) {
     return 'Project name is required.'
   }
-  if (field === 'orbit_identifier' && !IDENTIFIER_RE.test(form.orbit_identifier)) {
+  if (
+    field === 'orbit_identifier' &&
+    !IDENTIFIER_RE.test(form.orbit_identifier)
+  ) {
     return 'Identifier must be 2–10 uppercase letters/digits, starting with a letter.'
   }
   return ''

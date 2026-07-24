@@ -64,10 +64,7 @@
             View all tasks →
           </RouterLink>
         </header>
-        <ul
-          v-if="recentTasks.length"
-          class="divide-y divide-outline-gray-1"
-        >
+        <ul v-if="recentTasks.length" class="divide-y divide-outline-gray-1">
           <li
             v-for="t in recentTasks"
             :key="t.name"

@@ -1,8 +1,5 @@
 <template>
-  <Dialog
-    v-model="isOpen"
-    :options="{ title: 'Create project', size: 'md' }"
-  >
+  <Dialog v-model="isOpen" :options="{ title: 'Create project', size: 'md' }">
     <template #body-content>
       <form class="space-y-4" @submit.prevent="submit">
         <FormControl

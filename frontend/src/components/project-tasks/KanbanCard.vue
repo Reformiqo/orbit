@@ -23,7 +23,12 @@
     <!-- Title (2-line truncate) -->
     <p
       class="mb-2 text-sm text-ink-gray-9"
-      style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;"
+      style="
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      "
     >
       {{ task.subject }}
     </p>

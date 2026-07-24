@@ -8,7 +8,9 @@
     >
       <div class="flex flex-col">
         <h3 class="text-base font-medium text-ink-gray-9">{{ title }}</h3>
-        <p v-if="subtitle" class="mt-0.5 text-sm text-ink-gray-5">{{ subtitle }}</p>
+        <p v-if="subtitle" class="mt-0.5 text-sm text-ink-gray-5">
+          {{ subtitle }}
+        </p>
       </div>
       <slot name="actions" />
     </header>
