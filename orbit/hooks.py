@@ -11,7 +11,9 @@ app_icon_route = "/orbit"
 # Apps
 # ------------------
 
-# required_apps = []
+# Orbit extends ERPNext's Project and Task doctypes (module "Projects") with
+# custom fields, so ERPNext must be installed first.
+required_apps = ["erpnext"]
 
 add_to_apps_screen = [
 	{

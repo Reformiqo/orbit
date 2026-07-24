@@ -84,14 +84,17 @@ jobs:
       - name: Setup
         run: |
           pip install frappe-bench
-          bench init --skip-redis-config-generation --skip-assets --python "$(which python)" ~/frappe-bench
+          bench init --skip-redis-config-generation --skip-assets --python "$(which python)" --frappe-branch version-16 ~/frappe-bench
 
       - name: Install
         working-directory: /home/runner/frappe-bench
         run: |
+          # Orbit extends ERPNext's Project/Task doctypes — install erpnext first.
+          bench get-app --branch version-16 erpnext
           bench get-app orbit $GITHUB_WORKSPACE
           bench setup requirements --dev
           bench new-site --db-root-password root --admin-password admin test_site
+          bench --site test_site install-app erpnext
           bench --site test_site install-app orbit
           bench build
         env:
@@ -172,14 +175,17 @@ jobs:
       - name: Setup bench
         run: |
           pip install frappe-bench
-          bench init --skip-redis-config-generation --skip-assets --python "$(which python)" ~/frappe-bench
+          bench init --skip-redis-config-generation --skip-assets --python "$(which python)" --frappe-branch version-16 ~/frappe-bench
 
       - name: Install app + build SPA
         working-directory: /home/runner/frappe-bench
         run: |
+          # Orbit extends ERPNext's Project/Task doctypes — install erpnext first.
+          bench get-app --branch version-16 erpnext
           bench get-app orbit $GITHUB_WORKSPACE
           bench setup requirements --dev
           bench new-site --db-root-password root --admin-password admin test_site
+          bench --site test_site install-app erpnext
           bench --site test_site install-app orbit
           # Build the Vue SPA (produces orbit/public/frontend + www/orbit.html)
           yarn --cwd apps/orbit/frontend install --frozen-lockfile
