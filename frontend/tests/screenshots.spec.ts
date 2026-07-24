@@ -7,9 +7,21 @@
  */
 import { test, expect, APIRequestContext, Page } from '@playwright/test'
 import { resolve } from 'node:path'
+import { mkdirSync } from 'node:fs'
 
 const BASE = process.env.ORBIT_BASE_URL || 'http://127.0.0.1:6003'
-const OUT = '/home/frappe/workspace/typst/orbit/screenshots'
+// Doc-gen output. Overridable so it isn't pinned to one machine; defaults to
+// the local typst workspace where the project guide embeds these.
+const OUT =
+  process.env.ORBIT_SCREENSHOT_DIR ||
+  '/home/frappe/workspace/typst/orbit/screenshots'
+
+// These are documentation screenshots, not correctness tests — skip them in CI
+// (no typst workspace there) unless an output dir is explicitly provided.
+const describeShots =
+  process.env.CI && !process.env.ORBIT_SCREENSHOT_DIR
+    ? test.describe.skip
+    : test.describe
 
 test.use({
   viewport: { width: 1440, height: 900 },
@@ -108,8 +120,9 @@ async function shoot(page: Page, name: string) {
   })
 }
 
-test.describe('documentation screenshots', () => {
+describeShots('documentation screenshots', () => {
   test.beforeAll(async ({ request }) => {
+    mkdirSync(OUT, { recursive: true })
     await cleanup(request)
 
     // Rich demo project with several tasks in different states.
