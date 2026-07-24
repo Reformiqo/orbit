@@ -199,6 +199,9 @@ jobs:
       - name: Seed test user + workspace
         working-directory: /home/runner/frappe-bench
         run: |
+          # A default Company must exist — Project.company is mandatory and the
+          # Playwright specs create projects via seed_test_project.
+          bench --site test_site execute orbit.setup.before_tests.before_tests
           bench --site test_site execute orbit.tests.seed.create_test_user
           bench --site test_site execute orbit.tests.seed.ensure_default_workspace
           bench --site test_site execute orbit.tests.seed.ensure_states_for_all_projects
