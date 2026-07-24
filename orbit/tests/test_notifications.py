@@ -41,15 +41,24 @@ def _ensure_workspace() -> str:
 
 
 def _ensure_project() -> str:
-	_ensure_workspace()
+	from orbit.orbit.doctype.orbit_workflow_state.orbit_workflow_state import (
+		seed_default_states_for_project,
+	)
+
+	ws = _ensure_workspace()
 	name = frappe.db.exists("Project", {"project_name": f"{PREFIX} project"})
-	if name:
-		return name
-	p = frappe.new_doc("Project")
-	p.project_name = f"{PREFIX} project"
-	p.identifier = "PWNTF"
-	p.insert(ignore_permissions=True)
-	return p.name
+	if not name:
+		p = frappe.new_doc("Project")
+		p.project_name = f"{PREFIX} project"
+		# A workspace is required for after_insert to seed workflow states.
+		p.orbit_workspace = ws
+		p.orbit_identifier = "PWNTF"
+		p.insert(ignore_permissions=True)
+		name = p.name
+	# Guarantee default workflow states exist — the state-change test needs
+	# them, and older/stale projects may predate the seeding hook. Idempotent.
+	seed_default_states_for_project(name)
+	return name
 
 
 def _make_task(subject: str, **kwargs) -> str:
