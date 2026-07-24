@@ -196,7 +196,7 @@ doc_events = {
 # Testing
 # -------
 
-# before_tests = "orbit.install.before_tests"
+before_tests = "orbit.setup.before_tests.before_tests"
 
 # Extend DocType Class
 # ------------------------------
