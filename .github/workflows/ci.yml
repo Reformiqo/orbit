@@ -185,6 +185,8 @@ jobs:
           bench get-app orbit $GITHUB_WORKSPACE
           bench setup requirements --dev
           bench new-site --db-root-password root --admin-password admin test_site
+          # The Playwright seed helpers (orbit.tests.seed.*) are gated on developer_mode.
+          bench --site test_site set-config developer_mode 1
           bench --site test_site install-app erpnext
           bench --site test_site install-app orbit
           # Build the Vue SPA (produces orbit/public/frontend + www/orbit.html)
