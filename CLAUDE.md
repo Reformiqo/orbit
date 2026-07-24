@@ -156,6 +156,14 @@ bench --site v16.erpera.io run-tests --app orbit
 
 ## Git
 
-- Branch: `version-16` (current), main is `main`
-- Author: khanmomodou101
+- Remote: `git@github.com:Reformiqo/orbit.git` (SSH — HTTPS OAuth token lacks `workflow` scope). Open source.
+- Branch model (Frappe-style): **`develop`** is the integration/default branch (PRs target it); **`version-16`** is the release branch (what `bench get-app --branch version-16` installs / Frappe Cloud deploys).
+- Author: khanmomodou101.
+- **Never** add `Co-Authored-By: Claude` or any AI/Claude mention to commits or PRs — human-authored history only.
 - Only commit when explicitly asked.
+
+### Dev tooling / quality gates
+- **Backend:** ruff (lint+format) via `pyproject.toml` + pre-commit; Frappe semgrep + pip-audit in `linter.yml`.
+- **Frontend:** own eslint (flat config, `frontend/eslint.config.mjs`) + prettier (`frontend/.prettierrc.json`, 2-space) — run `yarn lint` / `yarn format` in `/frontend`. NOT wired into root pre-commit (that's Python-only).
+- **CI (`ci.yml`):** three jobs — `Server` (bench + `run-tests`), `UI (Playwright)` (builds SPA, serves site, runs specs), `Frontend lint + format`. Runs on push to `develop`/`version-16` and all PRs.
+- Prettier gotcha: multi-statement inline Vue handlers (`@submit="a(); b = ''"`) break — wrap in an arrow block `() => { a(); b = '' }` or extract a method.
