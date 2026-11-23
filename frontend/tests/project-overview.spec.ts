@@ -104,6 +104,8 @@ test.describe('Project Overview tab', () => {
   }) => {
     const projectId = await seedProject(request, 'PW Empty States', 'PWES')
 
+    // Modules and Milestones are built (ADR-0014), so their CTAs are live.
+    // Behaviour beyond the empty state is covered in project-planning.spec.ts.
     await page.goto(`/orbit/projects/${encodeURIComponent(projectId)}/modules`)
     await expect(page.getByTestId('project-modules-empty')).toBeVisible()
     await expect(
@@ -111,7 +113,7 @@ test.describe('Project Overview tab', () => {
     ).toBeVisible()
     await expect(
       page.getByRole('button', { name: /Create module/i }),
-    ).toBeDisabled()
+    ).toBeEnabled()
 
     await page.goto(
       `/orbit/projects/${encodeURIComponent(projectId)}/milestones`,
@@ -120,11 +122,18 @@ test.describe('Project Overview tab', () => {
     await expect(
       page.getByRole('heading', { name: 'No milestones yet' }),
     ).toBeVisible()
+    await expect(
+      page.getByRole('button', { name: /Create milestone/i }),
+    ).toBeEnabled()
 
+    // Views is still a stub — its CTA stays disabled until it is built.
     await page.goto(`/orbit/projects/${encodeURIComponent(projectId)}/views`)
     await expect(page.getByTestId('project-views-empty')).toBeVisible()
     await expect(
       page.getByRole('heading', { name: 'No saved views yet' }),
     ).toBeVisible()
+    await expect(
+      page.getByRole('button', { name: /Create view/i }),
+    ).toBeDisabled()
   })
 })

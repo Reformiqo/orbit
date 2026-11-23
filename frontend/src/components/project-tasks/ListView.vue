@@ -91,6 +91,8 @@ const props = defineProps({
   states: { type: Array, default: () => [] },
   taskTypes: { type: Array, default: () => [] },
   groupBy: { type: String, default: 'none' },
+  modules: { type: Array, default: () => [] },
+  milestones: { type: Array, default: () => [] },
   getState: { type: Function, required: true },
   getType: { type: Function, required: true },
 })
@@ -139,6 +141,75 @@ const grouped = computed(() => {
         color: '#CBD5E1',
         items: orphans,
         testId: 'no-status',
+      })
+    }
+    return out
+  }
+  if (props.groupBy === 'phase') {
+    // Phases are the parent epics. They are group headers here, not rows, so
+    // they are excluded from the items.
+    const epics = props.filteredTasks.filter((t) => t.is_group)
+    const leaves = props.filteredTasks.filter((t) => !t.is_group)
+    const ordered = [...epics].sort((a, b) =>
+      String(a.exp_start_date || '').localeCompare(
+        String(b.exp_start_date || ''),
+      ),
+    )
+    const out = []
+    for (const e of ordered) {
+      const items = leaves.filter((t) => t.parent_task === e.name)
+      if (!items.length) continue
+      out.push({
+        key: e.name,
+        label: e.subject,
+        color: null,
+        items,
+        testId: `phase-${(e.orbit_display_id || e.name).toLowerCase()}`,
+      })
+    }
+    const orphans = leaves.filter(
+      (t) => !t.parent_task || !epics.some((e) => e.name === t.parent_task),
+    )
+    if (orphans.length) {
+      out.push({
+        key: '__no-phase__',
+        label: 'No phase',
+        color: '#CBD5E1',
+        items: orphans,
+        testId: 'no-phase',
+      })
+    }
+    return out
+  }
+  if (props.groupBy === 'module' || props.groupBy === 'milestone') {
+    const isModule = props.groupBy === 'module'
+    const buckets = isModule ? props.modules : props.milestones
+    const field = isModule ? 'orbit_module' : 'orbit_milestone'
+    const nameField = isModule ? 'module_name' : 'milestone_name'
+    const out = []
+    for (const b of buckets) {
+      const items = props.filteredTasks.filter((t) => t[field] === b.name)
+      if (!items.length) continue
+      out.push({
+        key: b.name,
+        label: b[nameField],
+        color: b.color || null,
+        items,
+        testId: `${props.groupBy}-${String(b[nameField])
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, '-')
+          .replace(/^-|-$/g, '')}`,
+      })
+    }
+    const known = new Set(buckets.map((b) => b.name))
+    const orphans = props.filteredTasks.filter((t) => !known.has(t[field]))
+    if (orphans.length) {
+      out.push({
+        key: `__no-${props.groupBy}__`,
+        label: isModule ? 'No module' : 'No milestone',
+        color: '#CBD5E1',
+        items: orphans,
+        testId: `no-${props.groupBy}`,
       })
     }
     return out

@@ -36,6 +36,7 @@ declare module 'vue' {
     PageTree: typeof import('./src/components/PageTree.vue')['default']
     PageTreeRow: typeof import('./src/components/PageTreeRow.vue')['default']
     PillPlaceholder: typeof import('./src/components/PillPlaceholder.vue')['default']
+    PlanningList: typeof import('./src/components/project/PlanningList.vue')['default']
     ProfileCard: typeof import('./src/components/mytasks/ProfileCard.vue')['default']
     ProjectPagesTab: typeof import('./src/components/ProjectPagesTab.vue')['default']
     ProjectsSidebarSection: typeof import('./src/components/ProjectsSidebarSection.vue')['default']

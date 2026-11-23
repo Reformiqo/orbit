@@ -30,8 +30,8 @@ Target deployment: **Frappe Cloud**. This rules out arbitrary services (no Centr
 
 **Create net-new** only for concepts Frappe genuinely lacks:
 - Workspace (top-level container above Project) ✓ built
-- Module (feature bucket within a project)
-- Milestone (goal-based checkpoint, optional target date — replaces the need for Cycles)
+- Module (feature bucket within a project) ✓ built — see ADR-0014 and `docs/knowledge/planning.md`
+- Milestone (goal-based checkpoint, optional target date — replaces the need for Cycles) ✓ built
 - Orbit Task Type (Task/Bug/Story/Query/Spike/Epic — per-workspace, carries color + icon + letter prefix for ID format)
 - Task Link (typed: blocks / relates / duplicates)
 - Page (TipTap wiki doc, nested)

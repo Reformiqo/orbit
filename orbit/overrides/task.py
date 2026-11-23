@@ -8,6 +8,28 @@ def validate(doc, method=None) -> None:
 	_default_workflow_state(doc)
 	_default_reporter(doc)
 	_set_imported_at(doc)
+	_validate_planning_links(doc)
+
+
+def _validate_planning_links(doc) -> None:
+	"""A task may only point at a module or milestone in its own project.
+
+	Without this, the Modules tab of project A could show work from project B,
+	and progress rollups would silently count the wrong tasks.
+	"""
+	for fieldname, doctype, label in (
+		("orbit_module", "Orbit Module", "Module"),
+		("orbit_milestone", "Orbit Milestone", "Milestone"),
+	):
+		value = doc.get(fieldname)
+		if not value:
+			continue
+		owner_project = frappe.db.get_value(doctype, value, "project")
+		if owner_project and owner_project != doc.get("project"):
+			frappe.throw(
+				f"{label} '{value}' belongs to a different project and cannot be "
+				f"attached to this task."
+			)
 
 
 def _default_reporter(doc) -> None:

@@ -5,28 +5,36 @@ Running reference for how Orbit is built. Read relevant docs before starting a t
 ## Index
 
 ### Decisions & direction
+
 - [decisions.md](decisions.md) — ADR-style log of architectural choices and why
 
 ### UI & design
+
 - [ui-references.md](ui-references.md) — modern PM layout conventions + Frappe CRM for components/tokens; stacked grouped list anatomy, two-rail sidebar, project tabs
 
 ### Data model / imports
+
 - [zoho-compatibility.md](zoho-compatibility.md) — Orbit must import Zoho Projects data; required external_id/external_source fields on every importable doctype; Zoho concept → Orbit concept mapping; per-project ID prefixes (ABP2-I134)
 
 ### Backend / doctypes
+
 - [doctype-patterns.md](doctype-patterns.md) — directory/file naming, import-compat fields, slug normalize in before_validate, IntegrationTestCase testing pattern, migrate gotcha
 
 ### Testing
+
 - [testing.md](testing.md) — Playwright + Frappe setup, test-user seed, auth fixture, selector guidance, 127.0.0.1 vs localhost gotcha, ESM __dirname shim
 
 ### Frontend
+
 - [frontend-setup.md](frontend-setup.md) — Vite + Vue 3 + Frappe UI scaffold mirroring CRM; router base must match hooks.py
 - [frontend-feature-pattern.md](frontend-feature-pattern.md) — full-stack feature recipe (store + page + dialog + spec); website_route_rules cache gotcha
 - [editor.md](editor.md) — TipTap setup plan; three profiles (comment/issue-description/page); mention sources and triggers; MIT core only
+- [planning.md](planning.md) — Modules & Milestones: project-scoped doctypes, derived progress from status_group, the shared PlanningList component, bulk assignment
 - [analytics.md](analytics.md) — workspace-wide dashboard at `/orbit/analytics`; ApexCharts via vue3-apexcharts (lazy-loaded); client-side aggregation over `allTasks` + `allWorkflowStates`; how to add a new chart
 
 ### How-to guides
-*(populated as we build — don't write speculatively)*
+
+_(populated as we build — don't write speculatively)_
 
 - _(nothing yet — add entries here as we create them)_
 

@@ -78,7 +78,8 @@ def on_trash(doc, method=None):
 
 	Covers:
 
-	- Orbit Workflow State / Orbit Task Type / Orbit Page (our own Link Task)
+	- Orbit Workflow State / Orbit Task Type / Orbit Page / Orbit Module /
+	  Orbit Milestone (our own Link Task)
 	- Task (Frappe's built-in) + its ToDos / Comments / Notification Logs
 
 	Tests (and the SettingsTab UI) previously had to clean these in the
@@ -90,6 +91,8 @@ def on_trash(doc, method=None):
 	for doctype, field in (
 		("Orbit Workflow State", "project"),
 		("Orbit Page", "project"),
+		("Orbit Module", "project"),
+		("Orbit Milestone", "project"),
 	):
 		for name in frappe.get_all(doctype, filters={field: project}, pluck="name"):
 			frappe.delete_doc(

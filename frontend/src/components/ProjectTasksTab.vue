@@ -390,6 +390,8 @@
           :states="states.data || []"
           :taskTypes="taskTypes.data || []"
           :groupBy="groupBy"
+          :modules="planning.modules.data || []"
+          :milestones="planning.milestones.data || []"
           :getState="getState"
           :getType="getType"
           @openCreate="showCreate = true"
@@ -473,6 +475,7 @@ import CalendarView from '@/components/project-tasks/CalendarView.vue'
 import SpreadsheetView from '@/components/project-tasks/SpreadsheetView.vue'
 import { useTasksForProject } from '@/stores/tasks'
 import { useWorkflowStatesForProject } from '@/stores/workflowStates'
+import { usePlanning } from '@/stores/planning'
 import { useTaskTypesForWorkspace } from '@/stores/taskTypes'
 import { useCurrentWorkspace } from '@/composables/currentWorkspace'
 import { useSessionStore } from '@/stores/session'
@@ -484,6 +487,9 @@ const props = defineProps({
 })
 
 const states = useWorkflowStatesForProject(props.projectId)
+// Modules and milestones are only needed for their names when grouping by
+// them; the shared store means the Modules tab's fetch is reused.
+const planning = usePlanning(props.projectId)
 const tasks = useTasksForProject(props.projectId)
 const { currentWorkspace } = useCurrentWorkspace()
 const taskTypes = useTaskTypesForWorkspace(currentWorkspace.value?.name)
@@ -574,6 +580,9 @@ const groupByDefs = [
   { key: 'none', label: 'No grouping' },
   { key: 'status', label: 'Group by status' },
   { key: 'priority', label: 'Group by priority' },
+  { key: 'phase', label: 'Group by phase' },
+  { key: 'module', label: 'Group by module' },
+  { key: 'milestone', label: 'Group by milestone' },
 ]
 
 // ---------- derived ----------

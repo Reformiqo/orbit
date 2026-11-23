@@ -83,15 +83,15 @@ This keeps tests resilient to structural CSS changes.
 ### Writing a new spec
 
 ```ts
-import { test, expect } from '@playwright/test'
+import { test, expect } from "@playwright/test";
 
-test.describe('My feature', () => {
-  test('does the thing', async ({ page }) => {
-    await page.goto('/orbit/my-route')      // baseURL is already set
-    await page.getByRole('button', { name: 'Create' }).click()
-    await expect(page.getByText('Created')).toBeVisible()
-  })
-})
+test.describe("My feature", () => {
+  test("does the thing", async ({ page }) => {
+    await page.goto("/orbit/my-route"); // baseURL is already set
+    await page.getByRole("button", { name: "Create" }).click();
+    await expect(page.getByText("Created")).toBeVisible();
+  });
+});
 ```
 
 No login code needed — storage state from global-setup handles it.
@@ -99,3 +99,34 @@ No login code needed — storage state from global-setup handles it.
 ### Env loader (ESM quirk)
 
 Playwright config runs as ESM, so `__dirname` isn't a built-in. `tests/global-setup.ts` shims it via `fileURLToPath(import.meta.url)`. Don't remove that shim — resolving `.env.test` breaks without it.
+
+## Gotcha: Playwright does not see Python edits until gunicorn reloads
+
+The v16 bench serves the site through `gunicorn ... --preload` with **no auto-reload**. A
+change to any Python file (a new whitelisted seed helper, a wider allowlist, an API tweak)
+is picked up only by workers that happen to re-import that module. With 17 workers the
+result is a coin flip, and the symptom is a Playwright test that fails intermittently on a
+seed call with `Refusing to set non-allowed field: ...` or an unexpected-keyword error,
+while the same change works perfectly in `bench run-tests`.
+
+`bench run-tests` never hits this, because it runs in its own process and imports the file
+from disk. So "backend tests pass, Playwright fails on a seed helper I just added" is almost
+always this, not a real bug.
+
+Fix, before running the specs:
+
+```bash
+kill -HUP $(pgrep -f "gunicorn -b 127.0.0.1:8016" | head -1)
+```
+
+Gunicorn's HUP is graceful: in-flight requests finish and new workers spawn with the current
+code. Confirm it took by calling the changed endpoint a handful of times, since one stale
+worker is enough to reintroduce the flake:
+
+```bash
+for n in 1 2 3 4 5 6; do curl -s -b "$COOKIE" \
+  "http://127.0.0.1:6003/api/method/<your.changed.method>" | head -c 80; echo; done
+```
+
+Frontend edits do not need this, but they do need `yarn build` — Playwright runs against the
+built assets in `orbit/public/frontend`, not the Vite dev server.

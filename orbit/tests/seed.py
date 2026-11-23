@@ -498,6 +498,9 @@ def set_task_field(task: str, fieldname: str, value: str) -> str:
 		"priority",
 		"subject",
 		"status",
+		"orbit_module",
+		"orbit_milestone",
+		"parent_task",
 	}
 	if fieldname not in allowed:
 		frappe.throw(_("Refusing to set non-allowed field: {0}").format(fieldname))
@@ -533,6 +536,7 @@ def seed_test_task(
 	subject: str,
 	task_type_name: str = "",
 	workspace: str = "default",
+	is_group: str = "0",
 ) -> str:
 	"""Create a Task for Playwright tests. GET-callable, developer_mode only.
 
@@ -545,6 +549,7 @@ def seed_test_task(
 	task = frappe.new_doc("Task")
 	task.subject = subject
 	task.project = project
+	task.is_group = 1 if str(is_group) in ("1", "true", "True") else 0
 	if task_type_name:
 		tt = frappe.db.get_value(
 			"Orbit Task Type",
@@ -613,6 +618,48 @@ def seed_notification(
 	doc.document_name = document_name
 	doc.from_user = "Administrator"
 	doc.email_content = subject
+	doc.insert(ignore_permissions=True)
+	frappe.db.commit()
+	return doc.name
+
+
+@frappe.whitelist(allow_guest=False)
+def seed_test_module(
+	project: str,
+	module_name: str,
+	status: str = "Planned",
+	target_date: str = "",
+) -> str:
+	"""Create an Orbit Module for Playwright tests. GET-callable, developer_mode only."""
+	if not frappe.conf.developer_mode:
+		frappe.throw(_("Test seed is only available in developer mode."))
+	doc = frappe.new_doc("Orbit Module")
+	doc.project = project
+	doc.module_name = module_name
+	doc.status = status
+	if target_date:
+		doc.target_date = target_date
+	doc.insert(ignore_permissions=True)
+	frappe.db.commit()
+	return doc.name
+
+
+@frappe.whitelist(allow_guest=False)
+def seed_test_milestone(
+	project: str,
+	milestone_name: str,
+	status: str = "Planned",
+	target_date: str = "",
+) -> str:
+	"""Create an Orbit Milestone for Playwright tests. GET-callable, developer_mode only."""
+	if not frappe.conf.developer_mode:
+		frappe.throw(_("Test seed is only available in developer mode."))
+	doc = frappe.new_doc("Orbit Milestone")
+	doc.project = project
+	doc.milestone_name = milestone_name
+	doc.status = status
+	if target_date:
+		doc.target_date = target_date
 	doc.insert(ignore_permissions=True)
 	frappe.db.commit()
 	return doc.name
